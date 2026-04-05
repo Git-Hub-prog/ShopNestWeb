@@ -1,0 +1,393 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body.auth-page {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.login-header {
+    width: 100%;
+    background-color: #131921;
+    display: flex;
+    justify-content: center;
+    padding: 12px 0;
+    margin-bottom: 20px;
+}
+
+.logo {
+    background-image: url("https://m.media-amazon.com/images/G/31/gno/sprites/nav-sprite-global-2x-reorg-privacy._CB541718031_.png");
+    background-position: -10px -51px;
+    background-size: 350px;
+    background-repeat: no-repeat;
+    height: 31px;
+    width: 90px;
+    cursor: pointer;
+}
+
+.login-box,
+.register-box {
+    border: 1px solid #d5d9d9;
+    border-radius: 8px;
+    padding: 30px 32px;
+    width: 100%;
+    background: #fff;
+}
+
+.login-box {
+    max-width: 380px;
+}
+
+.register-box,
+.success-screen.register-success {
+    max-width: 420px;
+}
+
+.login-box h1,
+.register-box h1 {
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin-bottom: 20px;
+    color: #0f1111;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.register-box .form-group {
+    margin-bottom: 14px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #0f1111;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid #888c8c;
+    border-radius: 3px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus {
+    border-color: #e77600;
+    box-shadow: 0 0 0 3px rgba(228, 121, 17, 0.5);
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: #0066c0;
+}
+
+.register-box .toggle-password {
+    font-size: 0.8rem;
+}
+
+.toggle-password:hover {
+    color: #c7511f;
+    text-decoration: underline;
+}
+
+.btn-signin,
+.btn-register,
+.btn-home {
+    background: linear-gradient(to bottom, #f7dfa5, #f0c14b);
+    border: 1px solid #a88734;
+    border-radius: 3px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: #111;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.btn-signin,
+.btn-register {
+    width: 100%;
+    padding: 9px;
+}
+
+.btn-signin {
+    margin-top: 5px;
+}
+
+.btn-register {
+    margin-top: 6px;
+}
+
+.btn-home {
+    display: inline-block;
+    padding: 9px 20px;
+}
+
+.register-actions .btn-home {
+    padding: 9px 24px;
+    margin-right: 8px;
+}
+
+.btn-signin:hover,
+.btn-register:hover,
+.btn-home:hover {
+    background: linear-gradient(to bottom, #f5d78e, #eeb933);
+}
+
+.btn-home-secondary {
+    background: linear-gradient(to bottom, #f7f8f8, #e7e9ec);
+    border-color: #adb1b8;
+}
+
+.btn-home-secondary:hover {
+    background: linear-gradient(to bottom, #e7e9ec, #d4d7db);
+}
+
+.legal-text {
+    color: #555;
+    margin-top: 12px;
+    line-height: 1.5;
+}
+
+.login-box .legal-text {
+    font-size: 0.75rem;
+}
+
+.register-box .legal-text {
+    font-size: 0.72rem;
+}
+
+.legal-text a,
+.signin-link a,
+.login-footer-links a {
+    color: #0066c0;
+    text-decoration: none;
+}
+
+.legal-text a:hover,
+.signin-link a:hover,
+.login-footer-links a:hover {
+    text-decoration: underline;
+    color: #c7511f;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 20px 0 15px;
+    color: #888;
+    font-size: 0.75rem;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex-grow: 1;
+    height: 1px;
+    background: #ddd;
+}
+
+.divider span {
+    margin: 0 10px;
+    white-space: nowrap;
+}
+
+.new-account {
+    width: 100%;
+    max-width: 380px;
+    margin-top: 25px;
+}
+
+.new-account-box {
+    border-top: 1px solid #e7e7e7;
+    padding-top: 18px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.new-account-box p {
+    margin-bottom: 10px;
+    color: #0f1111;
+}
+
+.btn-create {
+    display: block;
+    width: 100%;
+    padding: 9px;
+    background: linear-gradient(to bottom, #f7f8f8, #e7e9ec);
+    border: 1px solid #adb1b8;
+    border-radius: 3px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-align: center;
+    color: #0f1111;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.btn-create:hover {
+    background: linear-gradient(to bottom, #e7e9ec, #d4d7db);
+}
+
+.admin-shortcut {
+    width: 100%;
+    max-width: 420px;
+    margin-top: 16px;
+    padding: 14px 18px;
+    border: 1px solid #d5d9d9;
+    border-radius: 8px;
+    background: #f7fafa;
+    text-align: center;
+}
+
+.admin-shortcut p {
+    margin-bottom: 10px;
+    color: #0f1111;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.btn-admin {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #0f6c5b;
+    border-radius: 6px;
+    background: #e7f7f4;
+    color: #0f6c5b;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.btn-admin:hover {
+    background: #d4f1eb;
+    border-color: #0b5749;
+}
+
+.signin-link {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 0.85rem;
+    border-top: 1px solid #ddd;
+    padding-top: 16px;
+    color: #555;
+}
+
+.error-msg {
+    display: none;
+    background-color: #fff4f4;
+    border: 1px solid #c40000;
+    border-radius: 3px;
+    padding: 10px;
+    margin-bottom: 15px;
+    color: #c40000;
+}
+
+.login-box .error-msg {
+    font-size: 0.85rem;
+}
+
+.register-box .error-msg {
+    font-size: 0.82rem;
+    margin-bottom: 12px;
+}
+
+.strength-bar {
+    height: 4px;
+    width: 0;
+    border-radius: 2px;
+    margin-top: 6px;
+    background: #ddd;
+    transition: all 0.3s;
+}
+
+.strength-label {
+    font-size: 0.72rem;
+    margin-top: 3px;
+    color: #555;
+}
+
+.success-screen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 1px solid #d5d9d9;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.success-screen.login-success {
+    max-width: 380px;
+    padding: 30px;
+}
+
+.success-screen.register-success {
+    padding: 35px 30px;
+}
+
+.success-screen i {
+    font-size: 3.5rem;
+    color: #2e7d32;
+    margin-bottom: 15px;
+}
+
+.success-screen h2 {
+    font-size: 1.4rem;
+    color: #0f1111;
+    margin-bottom: 10px;
+}
+
+.success-screen p {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.login-footer {
+    margin-top: 40px;
+    width: 100%;
+    border-top: 1px solid #ddd;
+}
+
+.login-footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 15px;
+    flex-wrap: wrap;
+}
+
+.login-footer-links a {
+    font-size: 0.75rem;
+}
+
+.login-footer-copy {
+    text-align: center;
+    font-size: 0.72rem;
+    color: #555;
+    padding-bottom: 15px;
+}

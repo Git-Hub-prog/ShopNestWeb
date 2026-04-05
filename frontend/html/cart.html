@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon - Shopping Cart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="../css/cart.css">
+</head>
+<body class="cart-page">
+    <div class="navbar">
+        <div class="nav-logo" data-nav-target="index.html">
+            <div class="logo"></div>
+        </div>
+        <div class="nav-cart">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>Cart (<span id="nav-cart-count">0</span>)</span>
+        </div>
+        <div class="nav-session" id="nav-session">
+            <div class="nav-session-text">
+                <span id="session-greeting">Hello, Admin</span>
+                <span id="session-role">Admin Access</span>
+            </div>
+            <a class="session-link" id="admin-dashboard-link" href="admin.html" hidden>Dashboard</a>
+            <button type="button" class="session-btn" id="session-action-btn">Visitor Mode</button>
+        </div>
+    </div>
+    <div class="panel">
+        <span data-nav-target="index.html">&#8592; Back to Home</span>
+    </div>
+
+    <div class="page-wrap">
+        <div class="cart-main">
+            <h1>Shopping Cart</h1>
+            <div class="cart-header-row"><span>Price</span></div>
+            <div id="cart-items-container"></div>
+        </div>
+
+        <div class="order-summary">
+            <div class="summary-box">
+                <h3>Order Summary</h3>
+                <div class="summary-row">
+                    <span>Items (<span id="item-count">0</span>):</span>
+                    <span id="subtotal">$0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping:</span>
+                    <span id="shipping-cost">FREE</span>
+                </div>
+                <div class="summary-row">
+                    <span>Tax (18%):</span>
+                    <span id="tax-cost">$0.00</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Order Total:</span>
+                    <span id="total-cost">$0.00</span>
+                </div>
+                <button class="btn-checkout" id="checkout-btn">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/cart.js"></script>
+</body>
+</html>

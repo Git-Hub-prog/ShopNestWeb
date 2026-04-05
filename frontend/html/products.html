@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon - Product Search</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="../css/products.css">
+</head>
+<body class="products-page">
+    <header>
+        <div class="navbar">
+            <div class="nav-logo border" data-nav-target="index.html">
+                <div class="logo"></div>
+            </div>
+            <div class="nav-address border">
+                <p class="add-first">Deliver to</p>
+                <div class="add-icon">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span class="add-second">India</span>
+                </div>
+            </div>
+            <div class="nav-search" id="nav-search">
+                <select class="search-select" id="search-category">
+                    <option value="all">All</option>
+                    <option value="health">Health</option>
+                    <option value="home">Home</option>
+                    <option value="gaming">Gaming</option>
+                    <option value="fashion">Fashion</option>
+                    <option value="decor">Decor</option>
+                    <option value="kitchen">Kitchen</option>
+                    <option value="home-arrivals">New Arrivals</option>
+                    <option value="fitness">Fitness</option>
+                </select>
+                <input placeholder="Search Amazon" class="search-input" id="search-input" autocomplete="off">
+                <div class="search-icon" id="search-btn" title="Search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+            </div>
+            <div class="nav-cart" data-nav-target="cart.html">
+                <i class="fa-solid fa-cart-shopping"></i>
+                Cart (<span id="cart-count">0</span>)
+            </div>
+            <div class="nav-session" id="nav-session">
+                <div class="nav-session-text">
+                    <span id="session-greeting">Hello, Admin</span>
+                    <span id="session-role">Admin Access</span>
+                </div>
+                <a class="session-link" id="admin-dashboard-link" href="admin.html" hidden>Dashboard</a>
+                <button type="button" class="session-btn" id="session-action-btn">Visitor Mode</button>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="panel-ops">
+                <p data-nav-target="index.html">Back to Home</p>
+                <p>Today's deals</p>
+                <p>Customer Service</p>
+                <p>Registry</p>
+                <p>Gift Cards</p>
+                <p>Sell</p>
+            </div>
+        </div>
+    </header>
+
+    <div id="search-results-banner" class="search-banner"></div>
+    <div class="page-container">
+        <aside class="sidebar">
+            <h3>Department</h3>
+            <ul id="category-list">
+                <li data-cat="health" data-nav-target="products.html?category=health">Health &amp; Care</li>
+                <li data-cat="home" data-nav-target="products.html?category=home">Home Essentials</li>
+                <li data-cat="gaming" data-nav-target="products.html?category=gaming">Gaming</li>
+                <li data-cat="fashion" data-nav-target="products.html?category=fashion">Fashion</li>
+                <li data-cat="decor" data-nav-target="products.html?category=decor">Room Decor</li>
+                <li data-cat="kitchen" data-nav-target="products.html?category=kitchen">Kitchen</li>
+                <li data-cat="home-arrivals" data-nav-target="products.html?category=home-arrivals">New Arrivals</li>
+                <li data-cat="fitness" data-nav-target="products.html?category=fitness">Fitness</li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="category-header">
+                <h1 id="category-title">All Products</h1>
+            </div>
+            <div class="product-filter-bar" id="product-filter-bar">
+                <label for="live-filter"><i class="fa-solid fa-filter"></i> Filter:</label>
+                <input type="text" id="live-filter" placeholder="Filter displayed products..." autocomplete="off">
+            </div>
+            <div class="product-grid" id="product-grid"></div>
+            <div class="no-results" id="no-results">
+                <i class="fa-solid fa-box-open"></i>
+                No products match your search. Try a different keyword or category.
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <div class="foot-panel1" id="back-to-top">
+            Back to top
+        </div>
+        <div class="foot-panel2">
+            <ul>
+                <p>Get to Know Us</p>
+                <a href="#">Careers</a>
+                <a href="#">Blog</a>
+                <a href="#">About Amazon</a>
+            </ul>
+            <ul>
+                <p>Make Money with Us</p>
+                <a href="#">Sell on Amazon</a>
+                <a href="#">Affiliate Program</a>
+            </ul>
+            <ul>
+                <p>Let Us Help You</p>
+                <a href="#">Your Account</a>
+                <a href="#">Your Orders</a>
+                <a href="#">Help</a>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/products.js"></script>
+    <script src="../js/products-page.js"></script>
+</body>
+</html>

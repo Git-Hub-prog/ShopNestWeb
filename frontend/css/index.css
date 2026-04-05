@@ -1,0 +1,425 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: #e3e6e6;
+    min-height: 100vh;
+}
+
+.border {
+    border: 1.5px solid transparent;
+}
+
+.border:hover {
+    border: 1.5px solid white;
+}
+
+.navbar {
+    height: 60px;
+    background-color: #0f1111;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.nav-logo {
+    height: 50px;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.logo {
+    background-image: url("https://m.media-amazon.com/images/G/31/gno/sprites/nav-sprite-global-2x-reorg-privacy._CB541718031_.png");
+    background-position: -10px -51px;
+    background-size: 350px;
+    background-repeat: no-repeat;
+    height: 31px;
+    width: 90px;
+}
+
+.nav-address {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.add-first {
+    color: #cccccc;
+    font-size: 0.75rem;
+    margin-left: 15px;
+}
+
+.add-icon {
+    display: flex;
+    align-items: center;
+}
+
+.add-icon i {
+    font-size: 1rem;
+}
+
+.add-second {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-left: 3px;
+}
+
+.nav-search {
+    display: flex;
+    flex-grow: 1;
+    height: 40px;
+    border-radius: 4px;
+    margin: 0 20px;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+}
+
+.nav-search:focus-within {
+    box-shadow: 0 0 0 3px #f3a847;
+}
+
+.search-select {
+    background-color: #f3f3f3;
+    width: 110px;
+    text-align: center;
+    border: none;
+    border-right: 1px solid #ddd;
+    outline: none;
+    font-size: 0.82rem;
+    padding: 0 6px;
+    cursor: pointer;
+}
+
+.search-input {
+    flex-grow: 1;
+    border: none;
+    padding: 0 10px;
+    font-size: 1rem;
+    outline: none;
+}
+
+.search-icon {
+    width: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #febd69;
+    color: #0f1111;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.search-icon:hover {
+    background-color: #f3a847;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+
+.shake {
+    animation: shake 0.4s ease;
+    box-shadow: 0 0 0 3px #c7511f !important;
+}
+
+.nav-signin,
+.nav-return,
+.nav-cart {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.nav-signin span,
+.nav-return span {
+    font-size: 0.75rem;
+    display: block;
+}
+
+.nav-second,
+.nav-third {
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.nav-cart {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.nav-cart i {
+    font-size: 1.8rem;
+    margin-right: 5px;
+}
+
+.nav-session {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    min-width: 180px;
+    justify-content: flex-end;
+}
+
+.nav-session-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.nav-session-text span:first-child {
+    font-size: 0.75rem;
+}
+
+.nav-session-text span:last-child {
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.session-link,
+.session-btn {
+    border: 1px solid #d5d9d9;
+    background: #ffffff;
+    color: #0f1111;
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.session-link:hover,
+.session-btn:hover {
+    background: #f3f3f3;
+}
+
+.panel {
+    height: 40px;
+    background-color: #232f3e;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 0.9rem;
+}
+
+.panel-all {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.panel-all i {
+    margin-right: 5px;
+}
+
+.panel-ops {
+    display: flex;
+    flex-grow: 1;
+}
+
+.panel-ops p {
+    padding: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.panel-ops p:hover,
+.panel span:hover {
+    outline: 1px solid white;
+}
+
+.panel span {
+    cursor: pointer;
+    padding: 8px;
+}
+
+.panel-deals {
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.hero-section {
+    background-image: url("https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=2070&auto=format&fit=crop");
+    height: 600px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.hero-massage {
+    background-color: white;
+    color: black;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    width: 95%;
+    margin-bottom: 25px;
+}
+
+.hero-massage a {
+    color: #007185;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.hero-massage a:hover {
+    color: #c7511f;
+    text-decoration: underline;
+}
+
+.shop-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    background-color: #e3e6e6;
+    padding: 20px 0;
+    margin-top: -300px;
+}
+
+.box {
+    height: 420px;
+    width: 23%;
+    background-color: white;
+    padding: 20px 15px;
+    margin-bottom: 20px;
+    z-index: 10;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.box:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.box h2 {
+    font-size: 1.25rem;
+    line-height: 1.4;
+    margin-bottom: 15px;
+    color: #0f1111;
+}
+
+.box-image {
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 15px;
+    transition: opacity 0.3s ease;
+}
+
+.box:hover .box-image {
+    opacity: 0.9;
+}
+
+.box a {
+    color: #007185;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.box a:hover {
+    color: #c7511f;
+    text-decoration: underline;
+}
+
+footer {
+    margin-top: 40px;
+}
+
+.foot-panel1 {
+    background-color: #37475a;
+    color: white;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.foot-panel1:hover {
+    background-color: #485769;
+}
+
+.foot-panel2 {
+    background-color: #232f3e;
+    color: white;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 40px 0;
+}
+
+.foot-panel2 ul {
+    list-style: none;
+}
+
+.foot-panel2 p {
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.foot-panel2 a {
+    display: block;
+    color: #dddddd;
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+}
+
+.foot-panel2 a:hover {
+    text-decoration: underline;
+}
+
+.box-image-health {
+    background-image: url("https://images.unsplash.com/photo-1583417319070-4a69db38a482?q=80&w=2070&auto=format&fit=crop");
+}
+
+.box-image-home {
+    background-image: url("https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=2070&auto=format&fit=crop");
+}
+
+.box-image-gaming {
+    background-image: url("https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop");
+}
+
+.box-image-fashion {
+    background-image: url("https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2070&auto=format&fit=crop");
+}
+
+.box-image-decor {
+    background-image: url("https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=1000&auto=format&fit=crop");
+}
+
+.box-image-home-arrivals {
+    background-image: url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1000&auto=format&fit=crop");
+}
+
+.box-image-kitchen {
+    background-image: url("https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=2070&auto=format&fit=crop");
+}
+
+.box-image-fitness {
+    background-image: url("https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=2070&auto=format&fit=crop");
+}

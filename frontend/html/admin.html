@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="admin-page">
+    <header>
+        <div class="navbar">
+            <div class="nav-logo" data-nav-target="index.html">
+                <div class="logo"></div>
+            </div>
+            <div class="nav-title">
+                <span>Admin Dashboard</span>
+                <small>User Management</small>
+            </div>
+            <div class="nav-session" id="nav-session">
+                <div class="nav-session-text">
+                    <span id="session-greeting">Hello, Admin</span>
+                    <span id="session-role">Admin Access</span>
+                </div>
+                <a class="session-link" id="admin-dashboard-link" href="admin.html" hidden>Dashboard</a>
+                <button type="button" class="session-btn" id="session-action-btn">Visitor Mode</button>
+            </div>
+        </div>
+        <div class="panel">
+            <span data-nav-target="index.html"><i class="fa-solid fa-house"></i> Back to Home</span>
+            <span data-nav-target="products.html"><i class="fa-solid fa-box-open"></i> Products</span>
+            <span data-nav-target="cart.html"><i class="fa-solid fa-cart-shopping"></i> Cart</span>
+        </div>
+    </header>
+
+    <main class="dashboard-shell">
+        <section class="summary-grid">
+            <div class="summary-card">
+                <span class="summary-label">Total Users</span>
+                <strong id="total-users">0</strong>
+            </div>
+            <div class="summary-card">
+                <span class="summary-label">Active Users</span>
+                <strong id="active-users">0</strong>
+            </div>
+            <div class="summary-card">
+                <span class="summary-label">Blocked Users</span>
+                <strong id="blocked-users">0</strong>
+            </div>
+        </section>
+
+        <section class="dashboard-panel">
+            <div class="panel-header">
+                <div>
+                    <h1>Registered Users</h1>
+                    <p>Review all accounts, block access, or remove users from the website.</p>
+                </div>
+                <button type="button" class="refresh-btn" id="refresh-users-btn">Refresh</button>
+            </div>
+
+            <div class="dashboard-message" id="admin-message" hidden></div>
+
+            <div class="table-wrap">
+                <table class="users-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-table-body">
+                        <tr>
+                            <td colspan="6" class="table-placeholder">Loading users...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/admin.js"></script>
+</body>
+</html>

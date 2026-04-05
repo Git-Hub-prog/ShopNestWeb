@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="nav-logo border" data-nav-target="index.html">
+                <div class="logo"></div>
+            </div>
+            <div class="nav-address border">
+                <p class="add-first">Deliver to</p>
+                <div class="add-icon">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span class="add-second">India</span>
+                </div>
+            </div>
+            <div class="nav-search" id="nav-search">
+                <select class="search-select" id="search-category">
+                    <option value="all">All</option>
+                    <option value="health">Health</option>
+                    <option value="home">Home</option>
+                    <option value="gaming">Gaming</option>
+                    <option value="fashion">Fashion</option>
+                    <option value="decor">Decor</option>
+                    <option value="kitchen">Kitchen</option>
+                    <option value="home-arrivals">New Arrivals</option>
+                    <option value="fitness">Fitness</option>
+                </select>
+                <input placeholder="Search Amazon" class="search-input" id="search-input" autocomplete="off">
+                <div class="search-icon" id="search-btn" title="Search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+            </div>
+            <div class="nav-cart" data-nav-target="cart.html">
+                <i class="fa-solid fa-cart-shopping"></i>
+                Cart (<span id="cart-count">0</span>)
+            </div>
+            <div class="nav-session" id="nav-session">
+                <div class="nav-session-text">
+                    <span id="session-greeting">Hello, Admin</span>
+                    <span id="session-role">Admin Access</span>
+                </div>
+                <a class="session-link" id="admin-dashboard-link" href="admin.html" hidden>Dashboard</a>
+                <button type="button" class="session-btn" id="session-action-btn">Visitor Mode</button>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="panel-all">
+                <i class="fa-solid fa-bars"></i>
+                All
+            </div>
+            <div class="panel-ops">
+                <p>Today's deals</p>
+                <p>Customer Service</p>
+                <p>Registry</p>
+                <p>Gift Cards</p>
+                <p>Sell</p>
+            </div>
+            <div class="panel-deals">
+                Shop deals in Electronics
+            </div>
+        </div>
+    </header>
+
+    <div class="hero-section">
+        <div class="hero-massage">
+            <p>You are on amazon.com. You can also shop on Amazon India for millions of products with fast local delivery. <a href="https://www.amazon.in/">Click here to go to amazon.in</a></p>
+        </div>
+    </div>
+
+    <div class="shop-section">
+        <div class="box1 box">
+            <div class="box-content">
+                <h2>Health &amp; personal Care</h2>
+                <div class="box-image box-image-health"></div>
+                <p><a href="products.html?category=health">See more</a></p>
+            </div>
+        </div>
+        <div class="box2 box">
+            <div class="box-content">
+                <h2>Shop for your home essentials</h2>
+                <div class="box-image box-image-home"></div>
+                <p><a href="products.html?category=home">Discover more in home</a></p>
+            </div>
+        </div>
+        <div class="box3 box">
+            <div class="content-box">
+                <h2>Get your game on</h2>
+                <div class="box-image box-image-gaming"></div>
+                <p><a href="products.html?category=gaming">Shop gaming</a></p>
+            </div>
+        </div>
+        <div class="box4 box">
+            <div class="content-box">
+                <h2>Shop deals in Fashion</h2>
+                <div class="box-image box-image-fashion"></div>
+                <p><a href="products.html?category=fashion">See all deals</a></p>
+            </div>
+        </div>
+        <div class="box5 box">
+            <div class="content-box">
+                <h2>Refresh your space</h2>
+                <div class="box-image box-image-decor"></div>
+                <p><a href="products.html?category=decor">See more</a></p>
+            </div>
+        </div>
+        <div class="box6 box">
+            <div class="content-box">
+                <h2>New home arrivals under $50</h2>
+                <div class="box-image box-image-home-arrivals"></div>
+                <p><a href="products.html?category=home-arrivals">Shope the latest from home</a></p>
+            </div>
+        </div>
+        <div class="box7 box">
+            <div class="content-box">
+                <h2>Top categories in Kitchen appliances</h2>
+                <div class="box-image box-image-kitchen"></div>
+                <p><a href="products.html?category=kitchen">See more</a></p>
+            </div>
+        </div>
+        <div class="box8 box">
+            <div class="content-box">
+                <h2>New year, now you</h2>
+                <div class="box-image box-image-fitness"></div>
+                <p><a href="products.html?category=fitness">Shop now</a></p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="foot-panel1" id="back-to-top">
+            Back to top
+        </div>
+        <div class="foot-panel2">
+            <ul>
+                <p>Get to Know Us</p>
+                <a href="https://www.amazon.jobs/">Careers</a>
+                <a href="https://blog.aboutamazon.com/?utm_source=gateway&utm_medium=footer">Blog</a>
+                <a href="https://www.aboutamazon.com/?utm_source=gateway&utm_medium=footer">About Amazon</a>
+                <a href="https://www.amazon.com/ir">Investor Relations</a>
+                <a href="https://www.amazon.com/gp/browse.html?node=2102313011&amp;ref_=footer_devices">Amazon Devices</a>
+                <a href="https://www.amazon.com/gp/browse.html?node=2102313011&amp;ref_=footer_devices">Amazon Science</a>
+            </ul>
+            <ul>
+                <p>Make Money with Us</p>
+                <a href="https://services.amazon.com/sell.html?ld=AZFSSOA&amp;ref_=footer_soa">Sell products on Amazon</a>
+                <a href="https://services.amazon.com/amazon-business.html?ld=usb2bunifooter&amp;ref_=footer_b2b">Sell on Amazon business</a>
+                <a href="https://developer.amazon.com/">Sell Apps on Amazon</a>
+                <a href="https://affiliate-program.amazon.com/">Become an affiliate</a>
+                <a href="https://advertising.amazon.com/?ref=ext_amzn_ftr">Advertise on your products</a>
+                <a href="https://www.amazon.com/gp/seller-account/mm-summary-page.html?ld=AZFooterSelfPublish&amp;topic=200260520&amp;ref_=footer_publishing">Self-publish with us</a>
+                <a href="https://go.thehub-amazon.com/amazon-hub-locker">Host an Amazon Hub</a>
+                <a href="https://www.amazon.com/b/?node=18190131011&amp;ld=AZUSSOA-seemore&amp;ref_=footer_seemore">See more make money with us</a>
+            </ul>
+            <ul>
+                <p>Amazon Payment Products</p>
+                <a href="https://www.amazon.com/dp/B07984JN3L?plattr=ACOMFO&amp;ie=UTF-8">Amazon Business Card</a>
+                <a href="https://www.amazon.com/gp/browse.html?node=16218619011&amp;ref_=footer_swp">Shop with points</a>
+                <a href="https://www.amazon.com/gp/browse.html?node=10232440011&amp;ref_=footer_reload_us">Reload your balance</a>
+                <a href="https://www.amazon.com/gp/browse.html?node=388305011&amp;ref_=footer_tfx">Amazon Currency Converter</a>
+            </ul>
+            <ul>
+                <p>Let Us Help You</p>
+                <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=GDFU3JS5AL6SYHRD&amp;ref_=footer_covid">Amazon and COVID 19</a>
+                <a href="https://www.amazon.com/gp/css/homepage.html?ref_=footer_ya">Your Account</a>
+                <a href="https://www.amazon.com/gp/css/order-history?ref_=footer_yo">Your Orders</a>
+                <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=468520&amp;ref_=footer_shiprates">Shipping rates &amp; policies</a>
+                <a href="https://www.amazon.com/gp/css/returns/homepage.html?ref_=footer_hy_f_4">Returns &amp; Replacement</a>
+                <a href="https://www.amazon.com/gp/digital/fiona/manage?ref_=footer_myk">Manage Your content and Devices</a>
+                <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=508510&amp;ref_=footer_gw_m_b_he">Help</a>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/index.js"></script>
+</body>
+</html>

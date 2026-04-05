@@ -1,0 +1,355 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body.cart-page {
+    background-color: #eaeded;
+    min-height: 100vh;
+}
+
+.navbar {
+    height: 60px;
+    background-color: #0f1111;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.nav-logo {
+    height: 50px;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.logo {
+    background-image: url("https://m.media-amazon.com/images/G/31/gno/sprites/nav-sprite-global-2x-reorg-privacy._CB541718031_.png");
+    background-position: -10px -51px;
+    background-size: 350px;
+    background-repeat: no-repeat;
+    height: 31px;
+    width: 90px;
+}
+
+.nav-cart {
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.nav-cart i {
+    font-size: 1.8rem;
+    margin-right: 5px;
+}
+
+.nav-session {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    min-width: 180px;
+    justify-content: flex-end;
+}
+
+.nav-session-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.nav-session-text span:first-child {
+    font-size: 0.75rem;
+}
+
+.nav-session-text span:last-child {
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.session-link,
+.session-btn {
+    border: 1px solid #d5d9d9;
+    background: #ffffff;
+    color: #0f1111;
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.session-link:hover,
+.session-btn:hover {
+    background: #f3f3f3;
+}
+
+.panel {
+    height: 40px;
+    background-color: #232f3e;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 0.9rem;
+}
+
+.panel span {
+    cursor: pointer;
+    padding: 8px;
+}
+
+.panel span:hover {
+    outline: 1px solid white;
+}
+
+.page-wrap {
+    max-width: 1100px;
+    margin: 25px auto;
+    padding: 0 15px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.cart-main {
+    flex: 1;
+    background: white;
+    padding: 20px 25px;
+    border-radius: 4px;
+}
+
+.cart-main h1 {
+    font-size: 1.7rem;
+    font-weight: 400;
+    border-bottom: 1px solid #e7e7e7;
+    padding-bottom: 15px;
+    margin-bottom: 10px;
+}
+
+.cart-header-row {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 0.8rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.empty-cart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.empty-cart i {
+    font-size: 5rem;
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+.empty-cart h2 {
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.empty-cart p {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.btn-shop {
+    padding: 9px 25px;
+    background: linear-gradient(to bottom, #f7dfa5, #f0c14b);
+    border: 1px solid #a88734;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-decoration: none;
+    color: #111;
+    font-weight: 500;
+}
+
+.btn-shop:hover {
+    background: linear-gradient(to bottom, #f5d78e, #eeb933);
+}
+
+.cart-item {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid #e7e7e7;
+    align-items: flex-start;
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.cart-item img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    border-radius: 4px;
+    background: #f8f8f8;
+    flex-shrink: 0;
+    border: 1px solid #e7e7e7;
+}
+
+.item-details {
+    flex: 1;
+}
+
+.item-name {
+    font-size: 1rem;
+    color: #007185;
+    margin-bottom: 6px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.item-name:hover {
+    color: #c7511f;
+}
+
+.item-stock {
+    font-size: 0.85rem;
+    color: #007600;
+    margin-bottom: 8px;
+}
+
+.item-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+}
+
+.qty-select {
+    padding: 4px 8px;
+    border: 1px solid #888;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    background: #f3f3f3;
+    cursor: pointer;
+}
+
+.item-delete {
+    font-size: 0.82rem;
+    color: #0066c0;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+}
+
+.item-delete:hover {
+    color: #c7511f;
+    text-decoration: underline;
+}
+
+.item-separator {
+    color: #ccc;
+}
+
+.item-price {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0f1111;
+    white-space: nowrap;
+}
+
+.order-summary {
+    width: 270px;
+    flex-shrink: 0;
+}
+
+.summary-box {
+    background: white;
+    padding: 20px;
+    border-radius: 4px;
+}
+
+.summary-box h3 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.summary-row.total {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0f1111;
+    border-top: 1px solid #e7e7e7;
+    padding-top: 12px;
+    margin-top: 10px;
+}
+
+.summary-row .savings {
+    color: #cc0c39;
+}
+
+#shipping-cost {
+    color: #007600;
+}
+
+.btn-checkout {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(to bottom, #f7dfa5, #f0c14b);
+    border: 1px solid #a88734;
+    border-radius: 100px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    font-weight: 500;
+    color: #111;
+    margin-top: 15px;
+    text-align: center;
+    transition: background 0.2s;
+}
+
+.btn-checkout:hover {
+    background: linear-gradient(to bottom, #f5d78e, #eeb933);
+}
+
+.toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #232f3e;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    display: none;
+    z-index: 999;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
