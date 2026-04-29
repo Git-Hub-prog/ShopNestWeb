@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopNest - My Orders</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="../css/orders.css">
+</head>
+<body class="orders-page">
+    <header>
+        <div class="navbar">
+            <div class="nav-logo" data-nav-target="index.html">
+                <div class="logo"></div>
+            </div>
+            <div class="nav-title">
+                <span>My Orders</span>
+                <small>Track your purchases</small>
+            </div>
+            <div class="nav-session" id="nav-session">
+                <div class="nav-session-text">
+                    <span id="session-greeting">Hello, Admin</span>
+                    <span id="session-role">Admin Access</span>
+                </div>
+                <a class="session-link" id="admin-dashboard-link" href="admin.html" hidden>Dashboard</a>
+                <button type="button" class="session-btn" id="session-action-btn">Visitor Mode</button>
+            </div>
+        </div>
+        <div class="panel">
+            <span data-nav-target="index.html"><i class="fa-solid fa-house"></i> Home</span>
+            <span data-nav-target="products.html"><i class="fa-solid fa-store"></i> Shop More</span>
+            <span data-nav-target="cart.html"><i class="fa-solid fa-cart-shopping"></i> Cart</span>
+        </div>
+    </header>
+
+    <main class="orders-shell">
+        <section class="orders-hero">
+            <h1>Your Orders</h1>
+            <p>See placed orders, payment details, delivery address, and live progress for each order.</p>
+        </section>
+
+        <div class="order-success-banner" id="order-success-banner" hidden>
+            <i class="fa-solid fa-circle-check"></i>
+            <div>
+                <strong>Order placed successfully.</strong>
+                <span>Your latest order has been added to My Orders and tracking is ready below.</span>
+            </div>
+        </div>
+
+        <div class="orders-layout">
+            <section class="orders-list-card">
+                <div id="orders-empty" class="orders-empty" hidden>
+                    <i class="fa-solid fa-box-open"></i>
+                    <h2>No orders yet</h2>
+                    <p>Your placed orders will appear here once you complete checkout.</p>
+                    <a href="products.html" class="btn-shop">Start Shopping</a>
+                </div>
+                <div id="orders-list" class="orders-list"></div>
+            </section>
+
+            <aside class="tracking-card" id="tracking-card" hidden>
+                <div class="tracking-header">
+                    <span class="tracking-label">Tracking</span>
+                    <h2 id="tracking-order-number">Order</h2>
+                </div>
+                <div class="tracking-status-row">
+                    <div>
+                        <span class="meta-label">Current Status</span>
+                        <strong id="tracking-status">Processing</strong>
+                    </div>
+                    <div>
+                        <span class="meta-label">Estimated Delivery</span>
+                        <strong id="tracking-delivery">-</strong>
+                    </div>
+                </div>
+                <div class="tracking-steps" id="tracking-steps"></div>
+                <div class="tracking-payment">
+                    <h3>Payment Details</h3>
+                    <p id="tracking-payment-text"></p>
+                </div>
+                <div class="tracking-summary">
+                    <h3>Order Summary</h3>
+                    <div class="tracking-summary-row">
+                        <span>Subtotal</span>
+                        <strong id="tracking-subtotal">$0.00</strong>
+                    </div>
+                    <div class="tracking-summary-row">
+                        <span>Shipping</span>
+                        <strong id="tracking-shipping">$0.00</strong>
+                    </div>
+                    <div class="tracking-summary-row">
+                        <span>Tax</span>
+                        <strong id="tracking-tax">$0.00</strong>
+                    </div>
+                    <div class="tracking-summary-row tracking-summary-total">
+                        <span>Total</span>
+                        <strong id="tracking-total">$0.00</strong>
+                    </div>
+                </div>
+                <div class="tracking-address">
+                    <h3>Delivery Address</h3>
+                    <p id="tracking-address-text"></p>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/orders.js"></script>
+</body>
+</html>

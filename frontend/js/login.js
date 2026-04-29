@@ -62,8 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 body: JSON.stringify({ email, password })
             });
 
-            enableAutoAdmin();
-            setCurrentUser(data.user);
+            setCurrentUser(Object.assign({}, data.user, { sessionToken: data.sessionToken }));
             document.getElementById("login-box").style.display = "none";
             document.getElementById("new-account-box").style.display = "none";
             const successScreen = document.getElementById("success-screen");

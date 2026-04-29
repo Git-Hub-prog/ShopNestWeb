@@ -19,14 +19,15 @@ async function apiRequest(path, options = {}) {
         ...(options.headers || {})
     };
 
-    if (currentUser?.id && !requestHeaders["X-User-Id"]) {
-        requestHeaders["X-User-Id"] = String(currentUser.id);
+    if (currentUser?.sessionToken && !requestHeaders["X-Session-Token"]) {
+        requestHeaders["X-Session-Token"] = String(currentUser.sessionToken);
     }
 
     let response;
 
     try {
         response = await fetch(`${API_BASE_URL}${path}`, {
+            cache: "no-store",
             headers: requestHeaders,
             ...options
         });
@@ -35,12 +36,17 @@ async function apiRequest(path, options = {}) {
     }
 
     const contentType = response.headers.get("content-type") || "";
-    const data = contentType.includes("application/json")
-        ? await response.json()
+    const rawText = await response.text();
+    const data = contentType.includes("application/json") && rawText
+        ? JSON.parse(rawText)
         : null;
 
     if (!response.ok) {
-        throw new Error(data?.error || "Request failed.");
+        const fallbackMessage = rawText
+            ? rawText.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()
+            : "Request failed.";
+
+        throw new Error(data?.error || fallbackMessage || "Request failed.");
     }
 
     return data;
@@ -105,23 +111,7 @@ function resumeAdminMode(path = "index.html") {
 
 async function ensureCurrentUser() {
     const existingUser = getCurrentUser();
-    if (existingUser) {
-        return existingUser;
-    }
-
-    if (!isAutoAdminDisabled() && isLocalProjectHost()) {
-        try {
-            const data = await apiRequest("/auth/admin");
-            if (data?.user) {
-                setCurrentUser(data.user);
-                return data.user;
-            }
-        } catch (_error) {
-            return null;
-        }
-    }
-
-    return null;
+    return existingUser;
 }
 
 async function initializeSessionUI() {
@@ -145,8 +135,19 @@ async function initializeSessionUI() {
         actionButton.textContent = isAdminUser(user) ? "Visitor Mode" : "Logout";
 
         if (dashboardLink) {
+            // show dashboard link only for admin users
             dashboardLink.hidden = !isAdminUser(user);
+            dashboardLink.style.display = isAdminUser(user) ? "inline-block" : "none";
         }
+
+        // hide any elements marked as admin-only for non-admins
+        document.querySelectorAll("[data-admin-only]").forEach((el) => {
+            if (!isAdminUser(user)) {
+                el.style.display = "none";
+            } else {
+                el.style.display = "";
+            }
+        });
 
         actionButton.onclick = () => {
             clearCurrentUser();
@@ -168,7 +169,13 @@ async function initializeSessionUI() {
         actionButton.textContent = "Login";
         if (dashboardLink) {
             dashboardLink.hidden = true;
+            dashboardLink.style.display = "none";
         }
+
+        // hide admin-only UI for visitors
+        document.querySelectorAll("[data-admin-only]").forEach((el) => {
+            el.style.display = "none";
+        });
         actionButton.onclick = () => {
             disableAutoAdmin();
             window.location.href = "login.html";

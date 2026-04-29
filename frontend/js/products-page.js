@@ -4,6 +4,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     const navSearchBtn = document.getElementById("search-btn");
     const navSearchCat = document.getElementById("search-category");
     const liveFilter = document.getElementById("live-filter");
+    const stockFilter = document.getElementById("stock-filter");
+    const sortFilter = document.getElementById("sort-filter");
+    const priceFilter = document.getElementById("price-filter");
+    const resetFiltersBtn = document.getElementById("reset-filters-btn");
     const productGrid = document.getElementById("product-grid");
     const noResults = document.getElementById("no-results");
 
@@ -57,26 +61,109 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    if (liveFilter) {
-        liveFilter.addEventListener("input", () => {
-            if (!productGrid || !noResults) {
-                return;
+    function applyFilters() {
+        if (!productGrid || !noResults) {
+            return;
+        }
+
+        const term = liveFilter?.value.trim().toLowerCase() || "";
+        const stockValue = stockFilter?.value || "all";
+        const sortValue = sortFilter?.value || "featured";
+        const priceValue = priceFilter?.value || "all";
+        const cards = Array.from(productGrid.querySelectorAll(".product-card"));
+
+        const matchesPrice = (price) => {
+            if (priceValue === "all") {
+                return true;
             }
+            if (priceValue === "0-25") {
+                return price < 2000;
+            }
+            if (priceValue === "25-50") {
+                return price >= 2000 && price <= 4000;
+            }
+            if (priceValue === "50-100") {
+                return price > 4000 && price <= 8000;
+            }
+            if (priceValue === "100-plus") {
+                return price > 8000;
+            }
+            return true;
+        };
 
-            const term = liveFilter.value.trim().toLowerCase();
-            const cards = productGrid.querySelectorAll(".product-card");
-            let visible = 0;
+        cards.forEach((card) => {
+            const haystack = [
+                card.dataset.title || "",
+                card.dataset.feature || "",
+                card.dataset.description || ""
+            ].join(" ");
+            const inStock = card.dataset.inStock === "true";
+            const price = Number(card.dataset.price || 0);
 
-            cards.forEach((card) => {
-                const title = card.querySelector(".product-title")?.textContent.toLowerCase() || "";
-                const show = !term || title.includes(term);
-                card.style.display = show ? "" : "none";
-                if (show) {
-                    visible += 1;
-                }
-            });
+            const matchesText = !term || haystack.includes(term);
+            const matchesStock = stockValue === "all"
+                || (stockValue === "in-stock" && inStock)
+                || (stockValue === "out-of-stock" && !inStock);
+            const show = matchesText && matchesStock && matchesPrice(price);
+            card.style.display = show ? "" : "none";
+        });
 
-            noResults.style.display = visible === 0 ? "block" : "none";
+        const visibleCards = cards.filter((card) => card.style.display !== "none");
+
+        visibleCards.sort((a, b) => {
+            if (sortValue === "price-low") {
+                return Number(a.dataset.price || 0) - Number(b.dataset.price || 0);
+            }
+            if (sortValue === "price-high") {
+                return Number(b.dataset.price || 0) - Number(a.dataset.price || 0);
+            }
+            if (sortValue === "rating-high") {
+                return Number(b.dataset.rating || 0) - Number(a.dataset.rating || 0);
+            }
+            if (sortValue === "name-az") {
+                return (a.dataset.title || "").localeCompare(b.dataset.title || "");
+            }
+            return 0;
+        });
+
+        visibleCards.forEach((card) => {
+            productGrid.appendChild(card);
+        });
+
+        noResults.style.display = visibleCards.length === 0 ? "block" : "none";
+    }
+
+    if (liveFilter) {
+        liveFilter.addEventListener("input", applyFilters);
+    }
+
+    if (stockFilter) {
+        stockFilter.addEventListener("change", applyFilters);
+    }
+
+    if (sortFilter) {
+        sortFilter.addEventListener("change", applyFilters);
+    }
+
+    if (priceFilter) {
+        priceFilter.addEventListener("change", applyFilters);
+    }
+
+    if (resetFiltersBtn) {
+        resetFiltersBtn.addEventListener("click", () => {
+            if (liveFilter) {
+                liveFilter.value = "";
+            }
+            if (stockFilter) {
+                stockFilter.value = "all";
+            }
+            if (sortFilter) {
+                sortFilter.value = "featured";
+            }
+            if (priceFilter) {
+                priceFilter.value = "all";
+            }
+            applyFilters();
         });
     }
 
@@ -99,4 +186,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             navSearchCat.value = category;
         }
     }
+
+    applyFilters();
 });

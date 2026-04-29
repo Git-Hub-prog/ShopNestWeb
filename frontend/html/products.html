@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amazon - Product Search</title>
+    <title>ShopNest - Product Search</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="../css/products.css">
 </head>
@@ -32,7 +32,7 @@
                     <option value="home-arrivals">New Arrivals</option>
                     <option value="fitness">Fitness</option>
                 </select>
-                <input placeholder="Search Amazon" class="search-input" id="search-input" autocomplete="off">
+                <input placeholder="Search ShopNest" class="search-input" id="search-input" autocomplete="off">
                 <div class="search-icon" id="search-btn" title="Search">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
@@ -40,6 +40,10 @@
             <div class="nav-cart" data-nav-target="cart.html">
                 <i class="fa-solid fa-cart-shopping"></i>
                 Cart (<span id="cart-count">0</span>)
+            </div>
+            <div class="nav-orders border" data-nav-target="orders.html">
+                <i class="fa-solid fa-box"></i>
+                My Orders
             </div>
             <div class="nav-session" id="nav-session">
                 <div class="nav-session-text">
@@ -83,8 +87,45 @@
                 <h1 id="category-title">All Products</h1>
             </div>
             <div class="product-filter-bar" id="product-filter-bar">
-                <label for="live-filter"><i class="fa-solid fa-filter"></i> Filter:</label>
-                <input type="text" id="live-filter" placeholder="Filter displayed products..." autocomplete="off">
+                <div class="filter-title">
+                    <i class="fa-solid fa-filter"></i>
+                    <span>Filter & Sort</span>
+                </div>
+                <div class="filter-controls">
+                    <div class="filter-field filter-search">
+                        <label for="live-filter">Search in results</label>
+                        <input type="text" id="live-filter" placeholder="Search by name, feature, or description..." autocomplete="off">
+                    </div>
+                    <div class="filter-field">
+                        <label for="stock-filter">Availability</label>
+                        <select id="stock-filter">
+                            <option value="all">All Items</option>
+                            <option value="in-stock">In Stock</option>
+                            <option value="out-of-stock">Out of Stock</option>
+                        </select>
+                    </div>
+                    <div class="filter-field">
+                        <label for="sort-filter">Sort By</label>
+                        <select id="sort-filter">
+                            <option value="featured">Featured</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="rating-high">Top Rated</option>
+                            <option value="name-az">Name: A to Z</option>
+                        </select>
+                    </div>
+                    <div class="filter-field">
+                        <label for="price-filter">Price Range</label>
+                        <select id="price-filter">
+                            <option value="all">Any Price</option>
+                            <option value="0-25">Under ₹2,000</option>
+                            <option value="25-50">₹2,000 to ₹4,000</option>
+                            <option value="50-100">₹4,000 to ₹8,000</option>
+                            <option value="100-plus">₹8,000 & Above</option>
+                        </select>
+                    </div>
+                    <button type="button" class="filter-reset-btn" id="reset-filters-btn">Reset</button>
+                </div>
             </div>
             <div class="product-grid" id="product-grid"></div>
             <div class="no-results" id="no-results">
@@ -99,23 +140,36 @@
             Back to top
         </div>
         <div class="foot-panel2">
-            <ul>
-                <p>Get to Know Us</p>
-                <a href="#">Careers</a>
-                <a href="#">Blog</a>
-                <a href="#">About Amazon</a>
-            </ul>
-            <ul>
-                <p>Make Money with Us</p>
-                <a href="#">Sell on Amazon</a>
-                <a href="#">Affiliate Program</a>
-            </ul>
-            <ul>
-                <p>Let Us Help You</p>
-                <a href="#">Your Account</a>
-                <a href="#">Your Orders</a>
-                <a href="#">Help</a>
-            </ul>
+            <div class="footer-brand">
+                <h3>ShopNest</h3>
+                <p>Explore curated categories and discover products picked for everyday living.</p>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="products.html">Browse All</a>
+                <a href="cart.html">View Cart</a>
+                <a href="login.html">Sign In</a>
+                <a href="register.html">Join ShopNest</a>
+            </div>
+            <div class="footer-contact">
+                <p>Email: support@shopnest.local</p>
+                <p>Delivery updates available across major categories.</p>
+                <p>Built to showcase your own ecommerce experience.</p>
+            </div>
+            <div class="footer-social footer-social-inline" aria-label="social-links">
+                <a href="https://www.instagram.com/faiyaj4553?igsh=MXBwNTJnMDR4NGs1ZA==" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.facebook.com/share/1EQZ6yzSXV/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.linkedin.com/in/faiyaj-ansari-293413366" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://github.com/Git-Hub-prog" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            </div>
+            <div class="footer-contact">
+                <p>Email: support@shopnest.local</p>
+                <p>Delivery updates available across major categories.</p>
+                <p>Built to showcase your own ecommerce experience.</p>
+            </div>
+        </div>
+        <div class="foot-panel3">
+            <p>&copy; 2026 ShopNest. All rights reserved.</p>
         </div>
     </footer>
 

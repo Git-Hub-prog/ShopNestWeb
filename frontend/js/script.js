@@ -40,6 +40,4 @@ document.addEventListener('DOMContentLoaded', () => {
             box.style.boxShadow = 'none';
         });
     });
-
-    console.log("Amazon Portfolio Enhanced: Navbar and interactive features initialized.");
 });

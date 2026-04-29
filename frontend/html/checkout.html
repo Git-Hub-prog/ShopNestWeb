@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopNest - Checkout</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="../css/checkout.css">
+</head>
+<body class="checkout-page">
+    <header>
+        <div class="navbar">
+            <div class="nav-logo" data-nav-target="index.html">
+                <div class="logo"></div>
+            </div>
+            <div class="nav-title">
+                <span>Secure Checkout</span>
+                <small>Delivery and payment</small>
+            </div>
+            <div class="nav-session" id="nav-session">
+                <div class="nav-session-text">
+                    <span id="session-greeting">Hello, Admin</span>
+                    <span id="session-role">Admin Access</span>
+                </div>
+                <a class="session-link" id="admin-dashboard-link" href="admin.html" hidden>Dashboard</a>
+                <button type="button" class="session-btn" id="session-action-btn">Visitor Mode</button>
+            </div>
+        </div>
+        <div class="panel">
+            <span data-nav-target="cart.html"><i class="fa-solid fa-arrow-left"></i> Back to Cart</span>
+            <span data-nav-target="orders.html"><i class="fa-solid fa-box"></i> My Orders</span>
+        </div>
+    </header>
+
+    <main class="checkout-shell">
+        <section class="checkout-form-card">
+            <div class="section-heading">
+                <h1>Checkout</h1>
+                <p>Complete your delivery details and choose a payment method to place your order.</p>
+            </div>
+
+            <div class="checkout-message" id="checkout-message" hidden></div>
+
+            <form id="checkout-form" novalidate>
+                <section class="form-section">
+                    <h2>Delivery Information</h2>
+                    <div class="form-grid">
+                        <label>
+                            Full Name
+                            <input type="text" id="delivery-name" placeholder="Enter your full name">
+                        </label>
+                        <label>
+                            Phone Number
+                            <input type="tel" id="delivery-phone" placeholder="Enter mobile number">
+                        </label>
+                        <label class="full-width">
+                            Street Address
+                            <textarea id="delivery-address" rows="3" placeholder="House no, street, area"></textarea>
+                        </label>
+                        <label>
+                            City
+                            <input type="text" id="delivery-city" placeholder="Enter city">
+                        </label>
+                        <label>
+                            State
+                            <input type="text" id="delivery-state" placeholder="Enter state">
+                        </label>
+                        <label>
+                            Postal Code
+                            <input type="text" id="delivery-zip" placeholder="PIN / ZIP code">
+                        </label>
+                    </div>
+                </section>
+
+                <section class="form-section">
+                    <h2>Payment Method</h2>
+                    <div class="payment-options">
+                        <label class="payment-option" for="payment-upi">
+                            <input type="radio" name="payment-method" value="upi" id="payment-upi" checked>
+                            <span><i class="fa-solid fa-mobile-screen-button"></i> UPI (PhonePe, Google Pay, Paytm)</span>
+                        </label>
+                        <label class="payment-option" for="payment-cod">
+                            <input type="radio" name="payment-method" value="cod" id="payment-cod">
+                            <span><i class="fa-solid fa-money-bill-wave"></i> Cash on Delivery</span>
+                        </label>
+                    </div>
+
+                    <div class="payment-panel payment-note" id="upi-fields">
+                        <label>
+                            UPI ID
+                            <input type="text" id="upi-id" placeholder="example@paytm or example@okhdfcbank" required>
+                        </label>
+                        <p class="upi-info">Enter your UPI ID. Payments will be processed instantly through your UPI app.</p>
+                    </div>
+
+                    <div class="payment-panel payment-note" id="cod-fields" hidden>
+                        <p>Pay in cash when your order arrives. Our delivery partner will contact you before arrival.</p>
+                    </div>
+
+                    <div class="payment-security">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span>Protected checkout with secure payment handling and order confirmation.</span>
+                    </div>
+                </section>
+
+                <button type="submit" class="btn-place-order" id="place-order-btn">Pay and Place Order</button>
+            </form>
+        </section>
+
+        <aside class="checkout-summary-card">
+            <h2>Order Summary</h2>
+            <div class="checkout-items" id="checkout-items"></div>
+            <div class="summary-row">
+                <span>Items (<span id="summary-count">0</span>)</span>
+                <strong id="summary-subtotal">$0.00</strong>
+            </div>
+            <div class="summary-row">
+                <span>Shipping</span>
+                <strong id="summary-shipping">FREE</strong>
+            </div>
+            <div class="summary-row">
+                <span>Tax</span>
+                <strong id="summary-tax">$0.00</strong>
+            </div>
+            <div class="summary-row total">
+                <span>Total</span>
+                <strong id="summary-total">$0.00</strong>
+            </div>
+        </aside>
+    </main>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/checkout.js"></script>
+</body>
+</html>

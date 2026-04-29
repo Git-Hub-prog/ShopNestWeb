@@ -23,13 +23,19 @@ body.auth-page {
 }
 
 .logo {
-    background-image: url("https://m.media-amazon.com/images/G/31/gno/sprites/nav-sprite-global-2x-reorg-privacy._CB541718031_.png");
-    background-position: -10px -51px;
-    background-size: 350px;
-    background-repeat: no-repeat;
-    height: 31px;
-    width: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 31px;
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
     cursor: pointer;
+}
+
+.logo::before {
+    content: "ShopNest";
 }
 
 .login-box,

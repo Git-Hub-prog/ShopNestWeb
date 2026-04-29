@@ -1,4 +1,12 @@
 let cachedProducts = [];
+let stockRefreshTimer = null;
+
+function formatPrice(price) {
+    if (!price && price !== 0) return "₹0";
+    const numPrice = typeof price === 'string' ? parseFloat(price.replace(/[₹,]/g, "")) : Number(price);
+    if (isNaN(numPrice)) return "₹0";
+    return `₹${Math.round(numPrice).toLocaleString('en-IN')}`;
+}
 
 function updateCartBadge() {
     const badge = document.getElementById("cart-count");
@@ -48,15 +56,31 @@ function renderProducts(products) {
 
     products.forEach((product) => {
         const card = document.createElement("div");
+        const isOutOfStock = !product.inStock;
+        const stockCount = Number(product.stock || 0);
         card.className = "product-card";
+        card.dataset.productId = String(product.id);
+        card.dataset.title = (product.name || "").toLowerCase();
+        card.dataset.feature = (product.feature || "").toLowerCase();
+        card.dataset.description = (product.description || "").toLowerCase();
+        card.dataset.price = String(parseFloat(String(product.price).replace(/[₹,]/g, "")) || 0);
+        card.dataset.rating = String(product.ratingValue || 0);
+        card.dataset.inStock = String(Boolean(product.inStock));
+        card.dataset.stock = String(stockCount);
         card.innerHTML = `
             <img src="${product.image}" alt="${product.name}" class="product-image">
             <h3 class="product-title">${product.name}</h3>
+            <div class="product-feature">${product.feature || "Popular pick"}</div>
+            <p class="product-description">${product.description || "A practical everyday choice built to deliver convenience, style, and reliable performance."}</p>
             <div class="product-rating">${product.rating}</div>
-            <div class="product-price">${product.price}</div>
+            <div class="product-price">${formatPrice(product.price)}</div>
+            <div class="product-stock" style="color:${isOutOfStock ? "#b12704" : "#007600"};margin-bottom:12px;font-size:0.9rem;font-weight:700;">
+                ${isOutOfStock ? "Out of Stock" : `In Stock (${stockCount})`}
+            </div>
             <button class="add-to-cart-btn"
                 data-id="${product.id}"
-                data-name="${product.name}">Add to Cart</button>
+                data-name="${product.name}"
+                ${isOutOfStock ? "disabled" : ""}>${isOutOfStock ? "Unavailable" : "Add to Cart"}</button>
         `;
 
         const image = card.querySelector(".product-image");
@@ -66,6 +90,9 @@ function renderProducts(products) {
 
         card.querySelector(".add-to-cart-btn").addEventListener("click", async (event) => {
             const button = event.currentTarget;
+            if (button.disabled) {
+                return;
+            }
             const user = await ensureCurrentUser();
             if (!user) {
                 window.alert("Please sign in first to add items to your cart.");
@@ -83,13 +110,34 @@ function renderProducts(products) {
                     })
                 });
 
+                const nextStock = Math.max(0, Number(card.dataset.stock || 0) - 1);
+                card.dataset.stock = String(nextStock);
+                card.dataset.inStock = String(nextStock > 0);
+
+                const stockEl = card.querySelector(".product-stock");
+                if (stockEl) {
+                    stockEl.style.color = nextStock > 0 ? "#007600" : "#b12704";
+                    stockEl.textContent = nextStock > 0 ? `In Stock (${nextStock})` : "Out of Stock";
+                }
+
                 button.textContent = "Added!";
                 button.style.backgroundColor = "#f0c14b";
                 updateCartBadge();
+
                 setTimeout(() => {
-                    button.textContent = "Add to Cart";
-                    button.style.backgroundColor = "#ffd814";
+                    if (Number(card.dataset.stock || 0) > 0) {
+                        button.textContent = "Add to Cart";
+                        button.style.backgroundColor = "#ffd814";
+                        button.disabled = false;
+                    } else {
+                        button.textContent = "Unavailable";
+                        button.style.backgroundColor = "#e0e0e0";
+                        button.disabled = true;
+                    }
                 }, 1500);
+
+                // Re-sync with backend so stock remains accurate across tabs/users.
+                refreshVisibleProductStock().catch(() => {});
             } catch (error) {
                 window.alert(error.message);
             }
@@ -97,6 +145,75 @@ function renderProducts(products) {
 
         grid.appendChild(card);
     });
+}
+
+function updateCardStockFromServer(card, product) {
+    if (!card || !product) {
+        return;
+    }
+
+    const nextStock = Number(product.stock || 0);
+    const inStock = Boolean(product.inStock);
+    const stockEl = card.querySelector(".product-stock");
+    const button = card.querySelector(".add-to-cart-btn");
+
+    card.dataset.stock = String(nextStock);
+    card.dataset.inStock = String(inStock);
+
+    if (stockEl) {
+        stockEl.style.color = inStock ? "#007600" : "#b12704";
+        stockEl.textContent = inStock ? `In Stock (${nextStock})` : "Out of Stock";
+    }
+
+    if (button) {
+        button.disabled = !inStock;
+        if (inStock) {
+            if (button.textContent !== "Added!") {
+                button.textContent = "Add to Cart";
+                button.style.backgroundColor = "#ffd814";
+            }
+        } else {
+            button.textContent = "Unavailable";
+            button.style.backgroundColor = "#e0e0e0";
+        }
+    }
+}
+
+async function refreshVisibleProductStock() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const categoryId = urlParams.get("category") || "";
+    const searchQuery = (urlParams.get("search") || "").trim();
+    const query = new URLSearchParams();
+
+    if (categoryId) {
+        query.set("category", categoryId);
+    }
+    if (searchQuery) {
+        query.set("search", searchQuery);
+    }
+
+    const data = await apiRequest(`/products${query.toString() ? `?${query.toString()}` : ""}`);
+    const latestProducts = Array.isArray(data?.products) ? data.products : [];
+    const byId = new Map(latestProducts.map((item) => [String(item.id), item]));
+
+    cachedProducts = latestProducts;
+
+    document.querySelectorAll(".product-card[data-product-id]").forEach((card) => {
+        const product = byId.get(card.dataset.productId || "");
+        if (product) {
+            updateCardStockFromServer(card, product);
+        }
+    });
+}
+
+function startStockAutoRefresh() {
+    if (stockRefreshTimer) {
+        clearInterval(stockRefreshTimer);
+    }
+
+    stockRefreshTimer = setInterval(() => {
+        refreshVisibleProductStock().catch(() => {});
+    }, 10000);
 }
 
 async function loadProducts() {
@@ -133,7 +250,7 @@ async function loadProducts() {
             titleEl.innerText = `Search Results for "${searchQuery}"`;
         }
 
-        document.title = `Amazon - Search: ${searchQuery}`;
+        document.title = `ShopNest - Search: ${searchQuery}`;
 
         if (bannerEl) {
             bannerEl.style.display = "block";
@@ -155,11 +272,17 @@ async function loadProducts() {
             liveInput.value = searchQuery;
         }
     } else {
-        const id = categoryId || "health";
+        const hasCategory = Boolean(categoryId);
         if (titleEl) {
-            titleEl.innerText = `${categoryNames[id] || "Products"} - Results`;
+            titleEl.innerText = hasCategory
+                ? `${categoryNames[categoryId] || "Products"} - Results`
+                : "All Products";
         }
-        document.title = `Amazon - ${categoryNames[id] || "Products"}`;
+
+        document.title = hasCategory
+            ? `ShopNest - ${categoryNames[categoryId] || "Products"}`
+            : "ShopNest - All Products";
+
         if (bannerEl) {
             bannerEl.style.display = "none";
         }
@@ -172,10 +295,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     updateCartBadge();
     try {
         await loadProducts();
+        startStockAutoRefresh();
     } catch (error) {
         const grid = document.getElementById("product-grid");
         if (grid) {
             grid.innerHTML = `<p>Unable to load products right now.</p>`;
         }
     }
+
+    document.addEventListener("visibilitychange", () => {
+        if (!document.hidden) {
+            refreshVisibleProductStock().catch(() => {});
+        }
+    });
+
+    window.addEventListener("beforeunload", () => {
+        if (stockRefreshTimer) {
+            clearInterval(stockRefreshTimer);
+        }
+    });
 });

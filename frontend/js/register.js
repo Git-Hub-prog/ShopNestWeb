@@ -108,8 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 body: JSON.stringify({ name, email, password })
             });
 
-            enableAutoAdmin();
-            setCurrentUser(data.user);
+            setCurrentUser(Object.assign({}, data.user, { sessionToken: data.sessionToken }));
             document.getElementById("register-box").style.display = "none";
             const successScreen = document.getElementById("success-screen");
             successScreen.style.display = "flex";

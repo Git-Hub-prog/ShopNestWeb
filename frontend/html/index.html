@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amazon</title>
+    <title>ShopNest</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="../css/index.css">
 </head>
@@ -32,7 +32,7 @@
                     <option value="home-arrivals">New Arrivals</option>
                     <option value="fitness">Fitness</option>
                 </select>
-                <input placeholder="Search Amazon" class="search-input" id="search-input" autocomplete="off">
+                <input placeholder="Search ShopNest" class="search-input" id="search-input" autocomplete="off">
                 <div class="search-icon" id="search-btn" title="Search">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
@@ -40,6 +40,10 @@
             <div class="nav-cart" data-nav-target="cart.html">
                 <i class="fa-solid fa-cart-shopping"></i>
                 Cart (<span id="cart-count">0</span>)
+            </div>
+            <div class="nav-orders border" data-nav-target="orders.html">
+                <i class="fa-solid fa-box"></i>
+                My Orders
             </div>
             <div class="nav-session" id="nav-session">
                 <div class="nav-session-text">
@@ -51,26 +55,16 @@
             </div>
         </div>
         <div class="panel">
-            <div class="panel-all">
+            <div class="panel-all" data-nav-target="products.html" title="Browse all products">
                 <i class="fa-solid fa-bars"></i>
                 All
-            </div>
-            <div class="panel-ops">
-                <p>Today's deals</p>
-                <p>Customer Service</p>
-                <p>Registry</p>
-                <p>Gift Cards</p>
-                <p>Sell</p>
-            </div>
-            <div class="panel-deals">
-                Shop deals in Electronics
             </div>
         </div>
     </header>
 
     <div class="hero-section">
         <div class="hero-massage">
-            <p>You are on amazon.com. You can also shop on Amazon India for millions of products with fast local delivery. <a href="https://www.amazon.in/">Click here to go to amazon.in</a></p>
+            <p>Welcome to ShopNest, your go-to destination for everyday essentials, trend picks, and great-value finds.</p>
         </div>
     </div>
 
@@ -138,43 +132,31 @@
             Back to top
         </div>
         <div class="foot-panel2">
-            <ul>
-                <p>Get to Know Us</p>
-                <a href="https://www.amazon.jobs/">Careers</a>
-                <a href="https://blog.aboutamazon.com/?utm_source=gateway&utm_medium=footer">Blog</a>
-                <a href="https://www.aboutamazon.com/?utm_source=gateway&utm_medium=footer">About Amazon</a>
-                <a href="https://www.amazon.com/ir">Investor Relations</a>
-                <a href="https://www.amazon.com/gp/browse.html?node=2102313011&amp;ref_=footer_devices">Amazon Devices</a>
-                <a href="https://www.amazon.com/gp/browse.html?node=2102313011&amp;ref_=footer_devices">Amazon Science</a>
-            </ul>
-            <ul>
-                <p>Make Money with Us</p>
-                <a href="https://services.amazon.com/sell.html?ld=AZFSSOA&amp;ref_=footer_soa">Sell products on Amazon</a>
-                <a href="https://services.amazon.com/amazon-business.html?ld=usb2bunifooter&amp;ref_=footer_b2b">Sell on Amazon business</a>
-                <a href="https://developer.amazon.com/">Sell Apps on Amazon</a>
-                <a href="https://affiliate-program.amazon.com/">Become an affiliate</a>
-                <a href="https://advertising.amazon.com/?ref=ext_amzn_ftr">Advertise on your products</a>
-                <a href="https://www.amazon.com/gp/seller-account/mm-summary-page.html?ld=AZFooterSelfPublish&amp;topic=200260520&amp;ref_=footer_publishing">Self-publish with us</a>
-                <a href="https://go.thehub-amazon.com/amazon-hub-locker">Host an Amazon Hub</a>
-                <a href="https://www.amazon.com/b/?node=18190131011&amp;ld=AZUSSOA-seemore&amp;ref_=footer_seemore">See more make money with us</a>
-            </ul>
-            <ul>
-                <p>Amazon Payment Products</p>
-                <a href="https://www.amazon.com/dp/B07984JN3L?plattr=ACOMFO&amp;ie=UTF-8">Amazon Business Card</a>
-                <a href="https://www.amazon.com/gp/browse.html?node=16218619011&amp;ref_=footer_swp">Shop with points</a>
-                <a href="https://www.amazon.com/gp/browse.html?node=10232440011&amp;ref_=footer_reload_us">Reload your balance</a>
-                <a href="https://www.amazon.com/gp/browse.html?node=388305011&amp;ref_=footer_tfx">Amazon Currency Converter</a>
-            </ul>
-            <ul>
-                <p>Let Us Help You</p>
-                <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=GDFU3JS5AL6SYHRD&amp;ref_=footer_covid">Amazon and COVID 19</a>
-                <a href="https://www.amazon.com/gp/css/homepage.html?ref_=footer_ya">Your Account</a>
-                <a href="https://www.amazon.com/gp/css/order-history?ref_=footer_yo">Your Orders</a>
-                <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=468520&amp;ref_=footer_shiprates">Shipping rates &amp; policies</a>
-                <a href="https://www.amazon.com/gp/css/returns/homepage.html?ref_=footer_hy_f_4">Returns &amp; Replacement</a>
-                <a href="https://www.amazon.com/gp/digital/fiona/manage?ref_=footer_myk">Manage Your content and Devices</a>
-                <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=508510&amp;ref_=footer_gw_m_b_he">Help</a>
-            </ul>
+            <div class="footer-brand">
+                <h3>ShopNest</h3>
+                <p>Smart shopping for home, style, wellness, and everyday essentials in one place.</p>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="products.html">Products</a>
+                <a href="cart.html">Cart</a>
+                <a href="login.html">Sign In</a>
+                <a href="register.html">Create Account</a>
+            </div>
+            <div class="footer-contact">
+                <p>Support: support@shopnest.local</p>
+                <p>Hours: Mon - Sat, 9:00 AM to 8:00 PM</p>
+                <p>Fast checkout. Simple browsing. Clean experience.</p>
+            </div>
+            <div class="footer-social footer-social-inline" aria-label="social-links">
+                <a href="https://www.instagram.com/faiyaj4553?igsh=MXBwNTJnMDR4NGs1ZA==" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.facebook.com/share/1EQZ6yzSXV/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.linkedin.com/in/faiyaj-ansari-293413366" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://github.com/Git-Hub-prog" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            </div>
+        </div>
+        <div class="foot-panel3">
+            <p>&copy; 2026 ShopNest. Crafted for your ecommerce portfolio.</p>
         </div>
     </footer>
 
