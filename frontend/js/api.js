@@ -1,12 +1,18 @@
+const API_URL = (window.APP_CONFIG?.API_URL || "").trim().replace(/\/+$/, "");
+
 const API_BASE_URL = (() => {
     const { protocol, hostname, port, origin } = window.location;
+
+    if (API_URL) {
+        return `${API_URL}/api`;
+    }
 
     if (port === "3000") {
         return `${origin}/api`;
     }
 
     if (protocol.startsWith("http") && hostname) {
-        return "http://localhost:3000/api";
+        return `${origin}/api`;
     }
 
     return "http://localhost:3000/api";

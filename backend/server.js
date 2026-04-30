@@ -23,6 +23,11 @@ app.use("/css", express.static(path.join(__dirname, "..", "frontend", "css")));
 app.use("/js", express.static(path.join(__dirname, "..", "frontend", "js")));
 app.use(express.static(path.join(__dirname, "..", "frontend", "html")));
 
+app.get("/", (req, res) => {
+  res.send("Backend is running successfully!");
+});
+
+
 function serializeRating(rating) {
   const full = Math.floor(rating);
   const empty = 5 - full;
