@@ -1,0 +1,704 @@
+{
+  "101": {
+    "id": 101,
+    "name": "Premium Face Mask - Pack of 50",
+    "price": 599,
+    "rating": 4,
+    "stock": 17,
+    "feature": "Triple-layer comfort fit",
+    "description": "Designed for everyday protection with soft ear loops and a breathable inner layer.",
+    "image": "https://images.unsplash.com/photo-1584634731339-252c581abfc5?w=800&h=600&fit=crop",
+    "category_id": "health"
+  },
+  "102": {
+    "id": 102,
+    "name": "Electronic Blood Pressure Monitor",
+    "price": 1299,
+    "rating": 5,
+    "stock": 6,
+    "feature": "One-tap quick reading",
+    "description": "Track blood pressure at home in seconds with a clear display and memory-ready results.",
+    "image": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=600&fit=crop",
+    "category_id": "health"
+  },
+  "103": {
+    "id": 103,
+    "name": "Organic Multivitamin - 90 Capsules",
+    "price": 899,
+    "rating": 4,
+    "stock": 0,
+    "feature": "Daily wellness support",
+    "description": "A clean daily blend with essential vitamins made to support busy, health-focused routines.",
+    "image": "https://images.unsplash.com/photo-1550572017-edd951b55104?w=800&h=600&fit=crop",
+    "category_id": "health"
+  },
+  "104": {
+    "id": 104,
+    "name": "First Aid Kit - 100 Piece Set",
+    "price": 1099,
+    "rating": 5,
+    "stock": 1,
+    "image": "https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=800&h=600&fit=crop",
+    "category_id": "health"
+  },
+  "105": {
+    "id": 105,
+    "name": "Digital Thermometer - Instant Read",
+    "price": 399,
+    "rating": 4,
+    "stock": 10,
+    "image": "https://images.unsplash.com/photo-1585435557343-3b092031a831?w=800&h=600&fit=crop",
+    "category_id": "health"
+  },
+  "106": {
+    "id": 106,
+    "name": "Electric Toothbrush with 4 Heads",
+    "price": 1799,
+    "rating": 5,
+    "stock": 4,
+    "image": "https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?w=800&h=600&fit=crop",
+    "category_id": "health"
+  },
+  "107": {
+    "id": 107,
+    "name": "Pulse Oximeter - OLED Display",
+    "price": 999,
+    "rating": 4,
+    "stock": 8,
+    "feature": "Accurate SpO2 in seconds",
+    "description": "Monitor oxygen saturation and pulse rate quickly with a bright OLED readout and one-button use.",
+    "image": "https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=800&h=600&fit=crop",
+    "category_id": "health"
+  },
+  "108": {
+    "id": 108,
+    "name": "Hot & Cold Gel Pack - Reusable",
+    "price": 349,
+    "rating": 4,
+    "stock": 20,
+    "feature": "Flexible pain-relief pack",
+    "description": "Reusable gel pack suitable for muscle soreness, swelling, and everyday first-aid support.",
+    "image": "https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=800&h=600&fit=crop",
+    "category_id": "health"
+  },
+  "109": {
+    "id": 109,
+    "name": "Orthopedic Knee Support - Pair",
+    "price": 799,
+    "rating": 5,
+    "stock": 14,
+    "feature": "Compression fit for stability",
+    "description": "Breathable knee sleeves designed for joint support during walking, workouts, and recovery.",
+    "image": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQdrSG-Cc0tQTdLZAAOp5LCYf0hQGqLJGusV94w8UjPZEMyDXpSRxPd8FI-3r4nDg-TCXibJufQrDieAf2zRogyR6L0II40JOZEUeyP4K9SxQ4xKSMAYBwdFpdmFEDBduSkJ3bpjw&usqp=CAc",
+    "category_id": "health"
+  },
+  "201": {
+    "id": 201,
+    "name": "Modern Table Lamp - Warm Light",
+    "price": 1199,
+    "rating": 4,
+    "stock": 6,
+    "image": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=800&h=600&fit=crop",
+    "category_id": "home"
+  },
+  "202": {
+    "id": 202,
+    "name": "Soft Cotton Bed Sheets - Queen",
+    "price": 1599,
+    "rating": 5,
+    "stock": 0,
+    "image": "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&h=600&fit=crop",
+    "category_id": "home"
+  },
+  "203": {
+    "id": 203,
+    "name": "Decorative Indoor Plant - Real",
+    "price": 649,
+    "rating": 4,
+    "image": "https://images.unsplash.com/photo-1463936575829-25148e1db1b8?w=800&h=600&fit=crop",
+    "category_id": "home",
+    "stock": 10
+  },
+  "204": {
+    "id": 204,
+    "name": "Smart LED Light Bulb - RGB",
+    "price": 499,
+    "rating": 4,
+    "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop",
+    "category_id": "home",
+    "stock": 9
+  },
+  "205": {
+    "id": 205,
+    "name": "Wall Clock - Minimalist Style",
+    "price": 899,
+    "rating": 5,
+    "image": "https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=800&h=600&fit=crop",
+    "category_id": "home",
+    "stock": 10
+  },
+  "206": {
+    "id": 206,
+    "name": "Scented Candle Set - 4 Scents",
+    "price": 749,
+    "rating": 5,
+    "image": "https://images.unsplash.com/photo-1602028915047-37269d1a73f7?w=800&h=600&fit=crop",
+    "category_id": "home",
+    "stock": 10
+  },
+  "207": {
+    "id": 207,
+    "name": "Microfiber Cleaning Cloth - 12 Pack",
+    "price": 449,
+    "rating": 4,
+    "stock": 17,
+    "feature": "Lint-free streak-free wipe",
+    "description": "Soft microfiber cloth set ideal for kitchen counters, glass, furniture, and appliance cleaning.",
+    "image": "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=800&h=600&fit=crop",
+    "category_id": "home"
+  },
+  "208": {
+    "id": 208,
+    "name": "Laundry Basket - Foldable",
+    "price": 699,
+    "rating": 4,
+    "stock": 10,
+    "feature": "Space-saving foldable design",
+    "description": "Lightweight basket with sturdy handles that folds flat when not in use for easy storage.",
+    "image": "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=800&h=600&fit=crop",
+    "category_id": "home"
+  },
+  "209": {
+    "id": 209,
+    "name": "Bathroom Organizer Rack - 3 Tier",
+    "price": 1499,
+    "rating": 5,
+    "stock": 6,
+    "feature": "Vertical storage organizer",
+    "description": "Three-tier rack to neatly arrange toiletries, towels, and daily essentials in compact spaces.",
+    "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?w=800&h=600&fit=crop",
+    "category_id": "home"
+  },
+  "301": {
+    "id": 301,
+    "name": "RGB Mechanical Gaming Keyboard",
+    "price": 2499,
+    "rating": 5,
+    "stock": 1,
+    "image": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=800&h=600&fit=crop",
+    "category_id": "gaming"
+  },
+  "302": {
+    "id": 302,
+    "name": "Wireless Gaming Mouse - Zero Lag",
+    "price": 1899,
+    "rating": 4,
+    "image": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=800&h=600&fit=crop",
+    "category_id": "gaming",
+    "stock": 8
+  },
+  "303": {
+    "id": 303,
+    "name": "Gaming Headset with Noise Cancel",
+    "price": 2999,
+    "rating": 5,
+    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&h=600&fit=crop",
+    "category_id": "gaming",
+    "stock": 9
+  },
+  "304": {
+    "id": 304,
+    "name": "Ergonomic Gaming Chair - Blue",
+    "price": 7999,
+    "rating": 5,
+    "image": "data:image/webp;base64,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",
+    "category_id": "gaming",
+    "stock": 10
+  },
+  "305": {
+    "id": 305,
+    "name": "Curved Gaming Monitor - 144Hz",
+    "price": 10999,
+    "rating": 5,
+    "image": "https://images.unsplash.com/photo-1593152167544-085d3b9c4938?w=800&h=600&fit=crop",
+    "category_id": "gaming",
+    "stock": 10
+  },
+  "306": {
+    "id": 306,
+    "name": "PS5 Wireless Controller - DualSense",
+    "price": 3499,
+    "rating": 5,
+    "image": "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=800&h=600&fit=crop",
+    "category_id": "gaming",
+    "stock": 10
+  },
+  "307": {
+    "id": 307,
+    "name": "Extended Gaming Mouse Pad - XL",
+    "price": 899,
+    "rating": 4,
+    "stock": 13,
+    "feature": "Smooth control surface",
+    "description": "Large anti-slip mouse pad that supports keyboard and mouse movement for long gaming sessions.",
+    "image": "https://mypcwala.com/cdn/shop/files/fearless-supercar-stitched-desk-mat-large-gaming-office-mouse-pad-non-slip-rubber-base-extended-desk-mat-for-keyboard-laptop-6722223.jpg?v=1758978929&width=533",
+    "category_id": "gaming"
+  },
+  "308": {
+    "id": 308,
+    "name": "USB Condenser Gaming Microphone",
+    "price": 2699,
+    "rating": 5,
+    "stock": 7,
+    "feature": "Clear voice pickup",
+    "description": "Plug-and-play microphone with focused capture for crisp streaming, chat, and recording quality.",
+    "image": "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=800&h=600&fit=crop",
+    "category_id": "gaming"
+  },
+  "309": {
+    "id": 309,
+    "name": "Gaming Capture Card - 4K Pass Through",
+    "price": 6499,
+    "rating": 4,
+    "stock": 4,
+    "feature": "Low-latency stream output",
+    "description": "Capture gameplay in high quality while maintaining smooth 4K pass-through for competitive play.",
+    "image": "https://i5.walmartimages.com/asr/7cca4e2c-708a-406f-8fc8-e1977141b8bc.7865ad6da2a7427b8d8c7d7551295435.jpeg",
+    "category_id": "gaming"
+  },
+  "401": {
+    "id": 401,
+    "name": "Classic Men's Leather Watch",
+    "price": 4499,
+    "rating": 5,
+    "image": "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=800&h=600&fit=crop",
+    "category_id": "fashion",
+    "stock": 7
+  },
+  "402": {
+    "id": 402,
+    "name": "Women's Stylish Denim Jacket",
+    "price": 2099,
+    "rating": 4,
+    "image": "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&h=600&fit=crop",
+    "category_id": "fashion",
+    "stock": 8
+  },
+  "403": {
+    "id": 403,
+    "name": "Polarized Sunglasses - UV Protect",
+    "price": 649,
+    "rating": 4,
+    "image": "https://images.unsplash.com/photo-1508296695146-257a814070b4?w=800&h=600&fit=crop",
+    "category_id": "fashion",
+    "stock": 10
+  },
+  "404": {
+    "id": 404,
+    "name": "Running Shoes - Lightweight",
+    "price": 2799,
+    "rating": 5,
+    "stock": 0,
+    "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&h=600&fit=crop",
+    "category_id": "fashion"
+  },
+  "405": {
+    "id": 405,
+    "name": "Leather Tote Bag - Brown",
+    "price": 2299,
+    "rating": 5,
+    "image": "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&h=600&fit=crop",
+    "category_id": "fashion",
+    "stock": 9
+  },
+  "406": {
+    "id": 406,
+    "name": "Casual Cotton T-Shirt - White",
+    "price": 399,
+    "rating": 4,
+    "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&h=600&fit=crop",
+    "category_id": "fashion",
+    "stock": 10
+  },
+  "407": {
+    "id": 407,
+    "name": "Women's Floral Summer Dress",
+    "price": 1699,
+    "rating": 4,
+    "stock": 9,
+    "feature": "Lightweight breathable fabric",
+    "description": "Everyday floral dress with a flattering silhouette that works for casual outings and brunch looks.",
+    "image": "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=800&h=600&fit=crop",
+    "category_id": "fashion"
+  },
+  "408": {
+    "id": 408,
+    "name": "Men's Slim Fit Chinos",
+    "price": 1499,
+    "rating": 4,
+    "stock": 11,
+    "feature": "Stretch comfort fit",
+    "description": "Smart-casual chinos with a tailored profile, suitable for office wear and weekend styling.",
+    "image": "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=800&h=600&fit=crop",
+    "category_id": "fashion"
+  },
+  "409": {
+    "id": 409,
+    "name": "Minimalist Wallet - Genuine Leather",
+    "price": 1199,
+    "rating": 5,
+    "stock": 15,
+    "feature": "Slim RFID-safe build",
+    "description": "Compact leather wallet with clean lines and practical card storage for daily carry.",
+    "image": "https://images.unsplash.com/photo-1627123424574-724758594e93?w=800&h=600&fit=crop",
+    "category_id": "fashion"
+  },
+  "501": {
+    "id": 501,
+    "name": "Wall Art Canvas - Abstract Blue",
+    "price": 1799,
+    "rating": 5,
+    "image": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcS0eXNeFgvmiAATZS89_SRJtl_lPYJWGueJGqQEVa3DgFOy0zVWJHgZ8x_sJs7ERudIoZGOgNfclx38bWm0YlDVKNYcPdrv-o2rRRaYhQWUdCbSK2IgKS1KeQ&usqp=CAc",
+    "category_id": "decor",
+    "stock": 10
+  },
+  "502": {
+    "id": 502,
+    "name": "Velvet Cushion Covers - Set of 2",
+    "price": 999,
+    "rating": 5,
+    "image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&h=600&fit=crop",
+    "category_id": "decor",
+    "stock": 10
+  },
+  "503": {
+    "id": 503,
+    "name": "Ceramic Flower Vase - Tall",
+    "price": 1299,
+    "rating": 4,
+    "image": "https://images.unsplash.com/photo-1567225557594-88d73e55f2cb?w=800&h=600&fit=crop",
+    "category_id": "decor",
+    "stock": 10
+  },
+  "504": {
+    "id": 504,
+    "name": "Golden Wall Mirror - 12 Inch",
+    "price": 1999,
+    "rating": 5,
+    "stock": 3,
+    "image": "https://images.unsplash.com/photo-1618220252344-8ec99ec624b1?w=800&h=600&fit=crop",
+    "category_id": "decor"
+  },
+  "505": {
+    "id": 505,
+    "name": "Cozy Woolen Throw Blanket",
+    "price": 1399,
+    "rating": 5,
+    "image": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcRoHgH10IkulvcecMFK1Z0oKMc9PWiLAIHmThw6yK4gNVPli2QTl40fZ2hble8rBaDFmVMgwW-VjWPBbkWup9Gb5XxTR6R6gTzAQAjQPTX95ZdGVklBD51x27DpG3tGoVudRXeAIPKJijg&usqp=CAc",
+    "category_id": "decor",
+    "stock": 10
+  },
+  "506": {
+    "id": 506,
+    "name": "Floating Wall Shelves - Set of 3",
+    "price": 1199,
+    "rating": 4,
+    "image": "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&h=600&fit=crop",
+    "category_id": "decor",
+    "stock": 10
+  },
+  "507": {
+    "id": 507,
+    "name": "Macrame Wall Hanging - Handmade",
+    "price": 899,
+    "rating": 4,
+    "stock": 10,
+    "feature": "Boho textured accent",
+    "description": "Handcrafted wall hanging that adds warmth and visual texture to bedrooms and living areas.",
+    "image": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRQQcNAoy0ekJYFfDhsWpnj0Z_g8eEP25lbihfEDd60PlswQI9f2AChXoKzBHYXGuiFkmrQygzRnYWp9w36832m9vgTgCIWccEASfrQrbzvA161_r6lsM04kg&usqp=CAc",
+    "category_id": "decor"
+  },
+  "508": {
+    "id": 508,
+    "name": "Bedside Photo Frame Set - 3 Piece",
+    "price": 799,
+    "rating": 4,
+    "stock": 12,
+    "feature": "Coordinated tabletop frames",
+    "description": "Three-frame set for bedside and console decor, designed to showcase your favorite memories.",
+    "image": "https://media.photolini.de/item/images/11942/full/3er-bilderrahmen-set-basic-collection-modern-eiche-30x30-100-22-A1.jpg",
+    "category_id": "decor"
+  },
+  "509": {
+    "id": 509,
+    "name": "Tabletop Succulent Planter",
+    "price": 599,
+    "rating": 5,
+    "stock": 16,
+    "feature": "Compact green decor piece",
+    "description": "Small decorative planter that instantly freshens up desks, shelves, and coffee tables.",
+    "image": "https://images.unsplash.com/photo-1463936575829-25148e1db1b8?w=800&h=600&fit=crop",
+    "category_id": "decor"
+  },
+  "601": {
+    "id": 601,
+    "name": "Stainless Steel Espresso Maker",
+    "price": 3599,
+    "rating": 5,
+    "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=600&fit=crop",
+    "category_id": "kitchen",
+    "stock": 10
+  },
+  "602": {
+    "id": 602,
+    "name": "Versatile Nutri-Blender - 1000W",
+    "price": 2199,
+    "rating": 4,
+    "image": "https://images.unsplash.com/photo-1585515320310-259814833e62?w=800&h=600&fit=crop",
+    "category_id": "kitchen",
+    "stock": 9
+  },
+  "603": {
+    "id": 603,
+    "name": "Automatic 4-Slice Toaster",
+    "price": 1899,
+    "rating": 4,
+    "stock": 0,
+    "image": "https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=800&h=600&fit=crop",
+    "category_id": "kitchen"
+  },
+  "604": {
+    "id": 604,
+    "name": "Chef's Knife Set - 8 Piece",
+    "price": 4999,
+    "rating": 5,
+    "image": "https://images.unsplash.com/photo-1593618998160-e34014e67546?w=800&h=600&fit=crop",
+    "category_id": "kitchen",
+    "stock": 10
+  },
+  "605": {
+    "id": 605,
+    "name": "Electric Kettle - 1.7L",
+    "price": 1299,
+    "rating": 5,
+    "image": "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=800&h=600&fit=crop",
+    "category_id": "kitchen",
+    "stock": 10
+  },
+  "606": {
+    "id": 606,
+    "name": "Non-Stick Frying Pan - 10 Inch",
+    "price": 1199,
+    "rating": 4,
+    "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop",
+    "category_id": "kitchen",
+    "stock": 10
+  },
+  "607": {
+    "id": 607,
+    "name": "Induction Cooktop - Single Burner",
+    "price": 2799,
+    "rating": 4,
+    "stock": 8,
+    "feature": "Fast and energy-efficient heating",
+    "description": "Portable single-burner cooktop with touch controls and quick heat response for compact kitchens.",
+    "image": "https://m.media-amazon.com/images/I/61bGD4GzpmL.jpg",
+    "category_id": "kitchen"
+  },
+  "608": {
+    "id": 608,
+    "name": "Food Storage Container Set - 12 Piece",
+    "price": 999,
+    "rating": 5,
+    "stock": 17,
+    "feature": "Airtight stackable containers",
+    "description": "Kitchen-friendly container set for dry goods, leftovers, and meal prep with secure locking lids.",
+    "image": "https://m.media-amazon.com/images/I/71DP7rSYOVL.jpg",
+    "category_id": "kitchen"
+  },
+  "609": {
+    "id": 609,
+    "name": "Manual Citrus Juicer - Steel",
+    "price": 649,
+    "rating": 4,
+    "stock": 14,
+    "feature": "Easy hand-press extraction",
+    "description": "Durable steel citrus juicer designed for quick fresh juice with minimal pulp and mess.",
+    "image": "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=800&h=600&fit=crop",
+    "category_id": "kitchen"
+  },
+  "701": {
+    "id": 701,
+    "name": "Air Purifier for Home - HEPA Filter",
+    "price": 4199,
+    "rating": 5,
+    "image": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRaT1MLv2iCtvCfBHKpKltvdi5uveik3OkxnUhXb2Ayp9NJvxXNk29mPUdxaCG8Pmxq64iIt5BLNzZ5gyzIpiPkaDHOcGsVmprpbUWIEhk9u5mpNqoKDTmIJPBzCqhZ15IvOysPhqc&usqp=CAc",
+    "category_id": "home-arrivals",
+    "stock": 8
+  },
+  "702": {
+    "id": 702,
+    "name": "Automatic Robot Vacuum Cleaner",
+    "price": 8499,
+    "rating": 5,
+    "stock": 1,
+    "image": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTk3P4nq0HLe1ZAo7PJUbtTsFp22B2dTqWbeyYkQDhQWb-vTB9ssqIRkf60GvmD7GY751KXT_zdd5MGUjeAPjOrH6o-AldIEc26_XlmOMHtSjKQhYgARHxDNs8qX-8vKB0N2to5cQ&usqp=CAc",
+    "category_id": "home-arrivals"
+  },
+  "703": {
+    "id": 703,
+    "name": "Cordless Stick Vacuum - 20kPa",
+    "price": 5999,
+    "rating": 4,
+    "image": "https://images.unsplash.com/photo-1558317374-067fb5f30001?w=800&h=600&fit=crop",
+    "category_id": "home-arrivals",
+    "stock": 10
+  },
+  "704": {
+    "id": 704,
+    "name": "Smart Doorbell Camera - HD",
+    "price": 3299,
+    "rating": 5,
+    "image": "https://images.unsplash.com/photo-1558002038-1055907df827?w=800&h=600&fit=crop",
+    "category_id": "home-arrivals",
+    "stock": 10
+  },
+  "705": {
+    "id": 705,
+    "name": "Ultrasonic Humidifier - 4L",
+    "price": 1699,
+    "rating": 4,
+    "image": "https://images.unsplash.com/photo-1601233749202-95d04d5b3c00?w=800&h=600&fit=crop",
+    "category_id": "home-arrivals",
+    "stock": 10
+  },
+  "706": {
+    "id": 706,
+    "name": "Smart Power Strip - 4 USB Ports",
+    "price": 1399,
+    "rating": 5,
+    "image": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQW24dm5HFCEQEIys5-oF_yhZyx1sgQnR_VQjn601Oz6vqX4fxmNoeFooiUUaCOiSyjJATPcUBJMDaGglBzpWhq6en8VxMQ3PavXo-nmMMR2cM9XBx_S-_RWc1fG25Qs2_jsbI3ph5G&usqp=CAc",
+    "category_id": "home-arrivals",
+    "stock": 10
+  },
+  "707": {
+    "id": 707,
+    "name": "Smart Air Fryer - 5L",
+    "price": 5499,
+    "rating": 5,
+    "stock": 5,
+    "feature": "Oil-light crisp cooking",
+    "description": "Modern 5L air fryer with presets for quick family meals and healthier everyday cooking.",
+    "image": "https://images.unsplash.com/photo-1585238342024-78d387f4a707?w=800&h=600&fit=crop",
+    "category_id": "home-arrivals"
+  },
+  "708": {
+    "id": 708,
+    "name": "Video Door Lock - Fingerprint",
+    "price": 9999,
+    "rating": 4,
+    "stock": 3,
+    "feature": "Smart home security access",
+    "description": "Fingerprint-enabled smart lock with camera support for safer and more convenient entry control.",
+    "image": "https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=800&h=600&fit=crop",
+    "category_id": "home-arrivals"
+  },
+  "709": {
+    "id": 709,
+    "name": "Convertible Sofa Bed - 3 Seater",
+    "price": 22999,
+    "rating": 5,
+    "stock": 2,
+    "feature": "Dual-use seating and sleep",
+    "description": "Spacious sofa bed that converts easily for guests while keeping a premium living-room look.",
+    "image": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&h=600&fit=crop",
+    "category_id": "home-arrivals"
+  },
+  "801": {
+    "id": 801,
+    "name": "Adjustable Dumbbell Set - 50 lbs",
+    "price": 5999,
+    "rating": 5,
+    "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=600&fit=crop",
+    "category_id": "fitness",
+    "stock": 10
+  },
+  "802": {
+    "id": 802,
+    "name": "Resistance Bands - Set of 5",
+    "price": 399,
+    "rating": 5,
+    "image": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcS4jF4Vs-bMVlHWL_dXbnQYd6zVtINDTmfgcFdKDLeZYfYFv27loSee_HYMiU103xllcWqnBBO49IppdEw1tJEY8_iRRB9heWKjN2uKij7rFr1fiFgLp_vLZDewl0shveDtYG0fRVUpgvs&usqp=CAc",
+    "category_id": "fitness",
+    "stock": 10
+  },
+  "803": {
+    "id": 803,
+    "name": "Yoga Mat with Carry Strap",
+    "price": 899,
+    "rating": 4,
+    "image": "https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?w=800&h=600&fit=crop",
+    "category_id": "fitness",
+    "stock": 10
+  },
+  "804": {
+    "id": 804,
+    "name": "Smart Fitness Tracker Watch",
+    "price": 1999,
+    "rating": 4,
+    "stock": 1,
+    "image": "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=800&h=600&fit=crop",
+    "category_id": "fitness"
+  },
+  "805": {
+    "id": 805,
+    "name": "Electric Foam Roller for Massage",
+    "price": 2999,
+    "rating": 5,
+    "image": "https://images.unsplash.com/photo-1597452485669-2c7bb5fef90d?w=800&h=600&fit=crop",
+    "category_id": "fitness",
+    "stock": 10
+  },
+  "806": {
+    "id": 806,
+    "name": "Jump Rope with Digital Counter",
+    "price": 499,
+    "rating": 4,
+    "image": "https://images.unsplash.com/photo-1598136490929-292a0a7890c2?w=800&h=600&fit=crop",
+    "category_id": "fitness",
+    "stock": 10
+  },
+  "807": {
+    "id": 807,
+    "name": "Kettlebell - 12kg Cast Iron",
+    "price": 2199,
+    "rating": 5,
+    "stock": 9,
+    "feature": "Balanced cast-iron grip",
+    "description": "Compact strength-training kettlebell for swings, squats, and full-body conditioning workouts.",
+    "image": "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&h=600&fit=crop",
+    "category_id": "fitness"
+  },
+  "808": {
+    "id": 808,
+    "name": "Adjustable Workout Bench",
+    "price": 6999,
+    "rating": 4,
+    "stock": 4,
+    "feature": "Multi-angle support bench",
+    "description": "Heavy-duty bench with incline settings for press, row, and core training at home gyms.",
+    "image": "https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=800&h=600&fit=crop",
+    "category_id": "fitness"
+  },
+  "809": {
+    "id": 809,
+    "name": "Whey Protein Isolate - 1kg",
+    "price": 2799,
+    "rating": 4,
+    "stock": 12,
+    "feature": "High-protein low-carb formula",
+    "description": "Quick-mix isolate supplement to support muscle recovery, strength goals, and active routines.",
+    "image": "https://images.unsplash.com/photo-1579722820308-d74e571900a9?w=800&h=600&fit=crop",
+    "category_id": "fitness"
+  }
+}

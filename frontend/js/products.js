@@ -94,7 +94,7 @@ function renderProducts(products) {
                 return;
             }
             const user = await ensureCurrentUser();
-            if (!user) {
+            if (!user || !Number(user.id)) {
                 window.alert("Please sign in first to add items to your cart.");
                 window.location.href = "login.html";
                 return;
@@ -139,6 +139,12 @@ function renderProducts(products) {
                 // Re-sync with backend so stock remains accurate across tabs/users.
                 refreshVisibleProductStock().catch(() => {});
             } catch (error) {
+                if ((error?.message || "").toLowerCase().includes("user or product not found")) {
+                    clearCurrentUser();
+                    window.alert("Your session expired. Please sign in again.");
+                    window.location.href = "login.html";
+                    return;
+                }
                 window.alert(error.message);
             }
         });

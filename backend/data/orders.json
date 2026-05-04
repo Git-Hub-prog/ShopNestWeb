@@ -1,0 +1,65 @@
+{
+  "nextId": 19,
+  "orders": [
+    {
+      "id": 17,
+      "user_id": 1,
+      "order_number": "SN-91067112",
+      "status": "Delivered",
+      "tracking_stage": "Delivered",
+      "payment_method": "upi",
+      "payment_last4": "axis",
+      "delivery_name": "Project Admin",
+      "delivery_phone": "09523720472",
+      "delivery_address": "parul university, vadodara",
+      "delivery_city": "vadodara",
+      "delivery_state": "gugarat",
+      "delivery_zip": "6789",
+      "subtotal": 4499,
+      "shipping": 0,
+      "tax": 809.82,
+      "total": 5308.82,
+      "estimated_delivery": "2026-05-08T10:37:47.112Z",
+      "placed_at": "2026-05-04T10:37:47.113Z",
+      "items": [
+        {
+          "product_id": 401,
+          "product_price": 4499,
+          "product_name": "Classic Men's Leather Watch",
+          "product_image": "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=800&h=600&fit=crop",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "user_id": 1,
+      "order_number": "SN-91643528",
+      "status": "Out for Delivery",
+      "tracking_stage": "Out for Delivery",
+      "payment_method": "cod",
+      "payment_last4": "",
+      "delivery_name": "Project Admin",
+      "delivery_phone": "09523720472",
+      "delivery_address": "parul university, vadodara",
+      "delivery_city": "vadodara",
+      "delivery_state": "gugarat",
+      "delivery_zip": "6789",
+      "subtotal": 2999,
+      "shipping": 0,
+      "tax": 539.82,
+      "total": 3538.82,
+      "estimated_delivery": "2026-05-08T10:47:23.528Z",
+      "placed_at": "2026-05-04T10:47:23.528Z",
+      "items": [
+        {
+          "product_id": 303,
+          "product_price": 2999,
+          "product_name": "Gaming Headset with Noise Cancel",
+          "product_image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&h=600&fit=crop",
+          "quantity": 1
+        }
+      ]
+    }
+  ]
+}

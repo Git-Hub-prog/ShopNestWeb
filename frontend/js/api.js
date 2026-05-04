@@ -19,14 +19,14 @@ const API_BASE_URL = (() => {
 })();
 
 async function apiRequest(path, options = {}) {
-    const currentUser = getCurrentUser();
-    const requestHeaders = {
+    const activeUser = getCurrentUser();
+    const headers = {
         "Content-Type": "application/json",
         ...(options.headers || {})
     };
 
-    if (currentUser?.sessionToken && !requestHeaders["X-Session-Token"]) {
-        requestHeaders["X-Session-Token"] = String(currentUser.sessionToken);
+    if (activeUser?.sessionToken && !headers["X-Session-Token"]) {
+        headers["X-Session-Token"] = String(activeUser.sessionToken);
     }
 
     let response;
@@ -34,7 +34,7 @@ async function apiRequest(path, options = {}) {
     try {
         response = await fetch(`${API_BASE_URL}${path}`, {
             cache: "no-store",
-            headers: requestHeaders,
+            headers,
             ...options
         });
     } catch (_error) {
@@ -52,7 +52,11 @@ async function apiRequest(path, options = {}) {
             ? rawText.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()
             : "Request failed.";
 
-        throw new Error(data?.error || fallbackMessage || "Request failed.");
+        const message = data?.error || fallbackMessage || "Request failed.";
+        const err = new Error(message);
+        err.status = response.status;
+        err.raw = rawText;
+        throw err;
     }
 
     return data;
@@ -60,7 +64,16 @@ async function apiRequest(path, options = {}) {
 
 function getCurrentUser() {
     const raw = localStorage.getItem("amazon_current_user");
-    return raw ? JSON.parse(raw) : null;
+    if (!raw) {
+        return null;
+    }
+
+    try {
+        return JSON.parse(raw);
+    } catch (_error) {
+        localStorage.removeItem("amazon_current_user");
+        return null;
+    }
 }
 
 function setCurrentUser(user) {
@@ -117,7 +130,17 @@ function resumeAdminMode(path = "index.html") {
 
 async function ensureCurrentUser() {
     const existingUser = getCurrentUser();
-    return existingUser;
+    if (!existingUser) {
+        return null;
+    }
+
+    const normalizedId = Number(existingUser.id);
+    if (!Number.isFinite(normalizedId) || normalizedId <= 0) {
+        clearCurrentUser();
+        return null;
+    }
+
+    return Object.assign({}, existingUser, { id: normalizedId });
 }
 
 async function initializeSessionUI() {

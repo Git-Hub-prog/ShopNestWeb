@@ -1,3 +1,11 @@
 node_modules/
+**/node_modules/
 .env
 backend/.env
+.qodo/
+MyAmazon_Project_Report.pdf
+backend/data/store.db
+scripts/tmp_*.json
+*.log
+Thumbs.db
+.DS_Store

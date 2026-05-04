@@ -62,6 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 body: JSON.stringify({ email, password })
             });
 
+            // successful login — persist user and session
             setCurrentUser(Object.assign({}, data.user, { sessionToken: data.sessionToken }));
             document.getElementById("login-box").style.display = "none";
             document.getElementById("new-account-box").style.display = "none";
@@ -69,8 +70,28 @@ document.addEventListener("DOMContentLoaded", () => {
             successScreen.style.display = "flex";
             successScreen.scrollIntoView({ behavior: "smooth" });
         } catch (error) {
+            // expose extra debug info in the console and on the page to help
+            // diagnose why backend rejected the login (status + raw backend body)
+            console.error("Login failed:", { message: error.message, status: error.status, raw: error.raw });
             errorText.textContent = ` ${error.message}`;
             errorMsg.style.display = "block";
+
+            // show a compact debug block below the error for troubleshooting
+            let dbg = document.getElementById("login-debug-raw");
+            if (!dbg) {
+                dbg = document.createElement("pre");
+                dbg.id = "login-debug-raw";
+                dbg.style.background = "#f8f8f8";
+                dbg.style.border = "1px solid #e0e0e0";
+                dbg.style.padding = "8px";
+                dbg.style.marginTop = "12px";
+                dbg.style.whiteSpace = "pre-wrap";
+                dbg.style.maxWidth = "520px";
+                dbg.style.overflowX = "auto";
+                errorMsg.parentNode.insertBefore(dbg, errorMsg.nextSibling);
+            }
+
+            dbg.textContent = `status: ${error.status || "?"}\nbody: ${error.raw || "(no body)"}`;
         }
     });
 

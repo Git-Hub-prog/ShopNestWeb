@@ -1,0 +1,35 @@
+{
+  "nextId": 4,
+  "users": [
+    {
+      "id": 1,
+      "name": "Project Admin",
+      "email": "admin@amazon-portfolio.local",
+      "password_hash": "d53808c9b77d9a2dddccc59ee4afc963:c2bdcbe28b9bea5e37662e06ad68defcf29c0f52735b655e3134913cd2ff530cccfa602d79045f65fcfcaebc6a8e52635c6f965b12c8a2ea5440bd9a2f3fb412",
+      "sessionToken": "0f7490e4d69199f077cb7a688865f6f61df86bdfd66f4f949b680dea16a08f28",
+      "isAdmin": true,
+      "isBlocked": false,
+      "created_at": null
+    },
+    {
+      "id": 2,
+      "name": "Project Admin",
+      "email": "faiyajansari0472@gmail.com",
+      "password_hash": "9edd0665222efc4cd6cdd4d6b5e426b9:5d1b87d3931e1ad56e608c74d71fe50209b8e3b0ed5e8394b5ac542d112cc4026926478dcb62911ff4ff09f8569f2bd4dc7eba01b59f6473a206388422180768",
+      "sessionToken": "39592b53c80a88b42c4a2a0896f49eaab3de51b029761f87091927e41167c17e",
+      "isAdmin": false,
+      "isBlocked": false,
+      "created_at": "2026-05-02T10:15:27.161Z"
+    },
+    {
+      "id": 3,
+      "name": "Manu",
+      "email": "manu99@gmail.com",
+      "password_hash": "800e5dc2e899deab7515149687b31f07:a103092f14507e8ac18f788e226c4748c48520ca83881fe8ad74377396d0542fef03ff8c09421b1c58fd1de3e6704b19dedda9694ac3fc4b644fbf3282b126dc",
+      "sessionToken": "3d631b58958e9dfb6accca9852e557f8dcb5dedf7fc8b55797742f24b3799cc4",
+      "isAdmin": false,
+      "isBlocked": false,
+      "created_at": "2026-05-02T10:19:22.232Z"
+    }
+  ]
+}

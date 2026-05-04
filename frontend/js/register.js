@@ -111,6 +111,19 @@ document.addEventListener("DOMContentLoaded", () => {
             setCurrentUser(Object.assign({}, data.user, { sessionToken: data.sessionToken }));
             document.getElementById("register-box").style.display = "none";
             const successScreen = document.getElementById("success-screen");
+            // Show created_at in IST if available
+            const createdAtText = document.getElementById("created-at-text");
+            if (createdAtText) {
+                const created = data.user && data.user.created_at ? data.user.created_at : new Date().toISOString();
+                const d = new Date(created);
+                try {
+                    const parts = new Intl.DateTimeFormat("en-IN", { timeZone: "Asia/Kolkata", day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: true }).formatToParts(d);
+                    const get = (type) => parts.find((p) => p.type === type)?.value || "";
+                    createdAtText.textContent = `Account created: ${get("day")}/${get("month")}/${get("year")}, ${get("hour")}:${get("minute")}:${get("second")} ${get("dayPeriod").toUpperCase()} IST`;
+                } catch (e) {
+                    createdAtText.textContent = `Account created: ${new Date(created).toString()}`;
+                }
+            }
             successScreen.style.display = "flex";
             successScreen.scrollIntoView({ behavior: "smooth" });
         } catch (error) {

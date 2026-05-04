@@ -3,11 +3,24 @@ function formatDisplayDate(dateString) {
         return "-";
     }
 
-    return new Date(dateString).toLocaleDateString(undefined, {
-        day: "numeric",
-        month: "short",
-        year: "numeric"
-    });
+    const date = new Date(dateString);
+    if (Number.isNaN(date.getTime())) {
+        return dateString;
+    }
+
+    const parts = new Intl.DateTimeFormat("en-IN", {
+        timeZone: "Asia/Kolkata",
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true
+    }).formatToParts(date);
+
+    const get = (type) => parts.find((p) => p.type === type)?.value || "";
+    return `${get("day")}/${get("month")}/${get("year")}, ${get("hour")}:${get("minute")}:${get("second")} ${get("dayPeriod").toUpperCase()} IST`;
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -45,20 +58,144 @@ document.addEventListener("DOMContentLoaded", async () => {
     let refreshInterval = null;
     let currentTrackedOrderId = null;
 
+    // Build the progress list shown in the tracking panel.
+    function buildTrackingSteps(orderLike) {
+        const stage = String(orderLike?.trackingStage || orderLike?.tracking_stage || "Order Confirmed").toLowerCase();
+        const status = String(orderLike?.status || "Processing").toLowerCase();
+        const isCancelled = status === "cancelled" || stage === "cancelled";
+
+        if (isCancelled) {
+            return [
+                { label: "Order Confirmed", completed: true },
+                { label: "Cancelled", completed: true }
+            ];
+        }
+
+        const base = [
+            { label: "Order Confirmed", keys: ["order confirmed", "processing"] },
+            { label: "Packed", keys: ["packed"] },
+            { label: "Shipped", keys: ["shipped"] },
+            { label: "Out for Delivery", keys: ["out for delivery"] },
+            { label: "Delivered", keys: ["delivered"] }
+        ];
+
+        let reached = 0;
+        for (let i = 0; i < base.length; i += 1) {
+            const hit = base[i].keys.some((k) => stage.includes(k) || status.includes(k));
+            if (hit) {
+                reached = i;
+            }
+        }
+
+        return base.map((s, idx) => ({
+            label: s.label,
+            completed: idx <= reached
+        }));
+    }
+
+    // Convert backend status values into the display labels used by the UI.
+    function resolveTrackingStage(trackingStage, status) {
+        const normalizedTrackingStage = String(trackingStage || "").trim().toLowerCase();
+        const normalizedStatus = String(status || "").trim().toLowerCase();
+
+        const stageMap = {
+            "processing": "Order Confirmed",
+            "order confirmed": "Order Confirmed",
+            "packed": "Packed",
+            "shipped": "Shipped",
+            "out for delivery": "Out for Delivery",
+            "delivered": "Delivered",
+            "cancelled": "Cancelled",
+            "canceled": "Cancelled"
+        };
+
+        return stageMap[normalizedStatus] || stageMap[normalizedTrackingStage] || trackingStage || "Order Confirmed";
+    }
+
+    // Normalize snake_case backend fields into the camelCase names used by the page.
+    function normalizeOrder(sourceOrder) {
+        if (!sourceOrder) return sourceOrder;
+
+        const order = Object.assign({}, sourceOrder);
+        order.orderNumber = sourceOrder.order_number || sourceOrder.orderNumber || order.orderNumber;
+        order.placedAt = sourceOrder.placed_at || sourceOrder.placedAt || order.placedAt;
+        order.paymentMethod = sourceOrder.payment_method || sourceOrder.paymentMethod || (sourceOrder.payment || {}).method || order.paymentMethod;
+        order.paymentLast4 = sourceOrder.payment_last4 || sourceOrder.paymentLast4 || (sourceOrder.payment || {}).last4 || order.paymentLast4;
+        order.status = sourceOrder.status || order.status;
+        order.trackingStage = resolveTrackingStage(sourceOrder.tracking_stage || sourceOrder.trackingStage || order.trackingStage, order.status);
+        order.estimatedDelivery = sourceOrder.estimated_delivery || sourceOrder.estimatedDelivery || order.estimatedDelivery;
+        order.deliveryName = sourceOrder.delivery_name || sourceOrder.deliveryName || order.deliveryName;
+        order.deliveryAddress = sourceOrder.delivery_address || sourceOrder.deliveryAddress || order.deliveryAddress;
+        order.deliveryCity = sourceOrder.delivery_city || sourceOrder.deliveryCity || order.deliveryCity;
+        order.deliveryState = sourceOrder.delivery_state || sourceOrder.deliveryState || order.deliveryState;
+        order.deliveryZip = sourceOrder.delivery_zip || sourceOrder.deliveryZip || order.deliveryZip;
+        order.deliveryPhone = sourceOrder.delivery_phone || sourceOrder.deliveryPhone || order.deliveryPhone;
+
+        if (Array.isArray(sourceOrder.items)) {
+            order.items = sourceOrder.items.map((item) => ({
+                name: item.product_name || item.name || item.productName || '',
+                qty: item.quantity || item.qty || 0,
+                price: item.product_price || item.price || 0,
+                image: item.product_image || item.image || ''
+            }));
+        } else {
+            order.items = Array.isArray(order.items) ? order.items : [];
+        }
+
+        order.trackingSteps = Array.isArray(sourceOrder.trackingSteps) && sourceOrder.trackingSteps.length
+            ? sourceOrder.trackingSteps
+            : buildTrackingSteps(order);
+
+        order.total = sourceOrder.total || order.total;
+
+        // Keep the buttons aligned with the backend rules.
+        const restrictedStages = ['shipped', 'out for delivery', 'delivered'];
+        const normalizedStage = String(order.trackingStage || '').trim().toLowerCase();
+        const normalizedStatus = String(order.status || '').trim().toLowerCase();
+        const hasReachedShipping = restrictedStages.includes(normalizedStage) || restrictedStages.includes(normalizedStatus);
+        const isCancelled = normalizedStatus === 'cancelled' || normalizedStage === 'cancelled';
+        order.canCancel = !hasReachedShipping && !isCancelled;
+        order.canDelete = isCancelled || !hasReachedShipping;
+
+        return order;
+    }
+
     function setActiveOrderCard(orderId) {
         document.querySelectorAll(".order-card").forEach((card) => {
             card.classList.toggle("active-order", Number(card.dataset.orderId) === orderId);
         });
     }
 
-    function startTrackingOrder(orderId) {
+    async function loadLatestTrackedOrder(orderId) {
+        const data = await apiRequest(`/orders/${orderId}?userId=${user.id}`);
+        const latestOrder = normalizeOrder(data.order);
+
+        const orderIndex = orders.findIndex((entry) => entry.id === latestOrder.id);
+        if (orderIndex !== -1) {
+            orders[orderIndex] = latestOrder;
+        }
+
+        return latestOrder;
+    }
+
+    async function startTrackingOrder(orderId) {
         currentTrackedOrderId = orderId;
 
         if (refreshInterval) {
             clearInterval(refreshInterval);
         }
 
-        refreshTrackedOrder();
+        try {
+            const latestOrder = await loadLatestTrackedOrder(orderId);
+            renderOrders();
+            renderTracking(latestOrder);
+        } catch (_error) {
+            const fallbackOrder = orders.find((entry) => entry.id === orderId);
+            if (fallbackOrder) {
+                renderTracking(fallbackOrder);
+            }
+        }
+
         refreshInterval = setInterval(refreshTrackedOrder, 5000);
     }
 
@@ -69,21 +206,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         try {
             const data = await apiRequest(`/orders/${currentTrackedOrderId}?userId=${user.id}`);
-            const updatedOrder = data.order;
-            
-            // Update the order in the orders array
+            const updatedOrder = normalizeOrder(data.order);
+
             const orderIndex = orders.findIndex((o) => o.id === updatedOrder.id);
             if (orderIndex !== -1) {
                 const previousOrder = orders[orderIndex];
                 orders[orderIndex] = updatedOrder;
-                
-                // If status changed, update the display
-                if (previousOrder.trackingStage !== updatedOrder.trackingStage) {
+
+                if (previousOrder.trackingStage !== updatedOrder.trackingStage || previousOrder.status !== updatedOrder.status) {
                     renderOrders();
                     renderTracking(updatedOrder);
-                    
-                    // Show notification of status change
-                    const message = `Order Status Updated: ${updatedOrder.trackingStage}`;
+
+                    const message = previousOrder.trackingStage !== updatedOrder.trackingStage
+                        ? `Order Stage Updated: ${updatedOrder.trackingStage}`
+                        : `Order Status Updated: ${updatedOrder.status}`;
+
                     if (successBanner) {
                         successBanner.hidden = false;
                         successBanner.className = "success-banner";
@@ -99,6 +236,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
+    // Update the right-side tracking panel.
     function renderTracking(order) {
         if (
             !trackingCard ||
@@ -122,7 +260,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         trackingDelivery.textContent = order.trackingStage === "Cancelled"
             ? "Cancelled"
             : formatDisplayDate(order.estimatedDelivery);
-        trackingPaymentText.textContent = `${order.paymentMethod.toUpperCase()}${order.paymentLast4 ? ` ending in ${order.paymentLast4}` : ""}`;
+        trackingPaymentText.textContent = `${(order.paymentMethod||'').toUpperCase()}${order.paymentLast4 ? ` ending in ${order.paymentLast4}` : ""}`;
         trackingSubtotal.textContent = order.subtotal;
         trackingShipping.textContent = order.shipping;
         trackingTax.textContent = order.tax;
@@ -130,7 +268,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         trackingAddressText.textContent = `${order.deliveryName}, ${order.deliveryAddress}, ${order.deliveryCity}, ${order.deliveryState} - ${order.deliveryZip}. Phone: ${order.deliveryPhone}`;
         setActiveOrderCard(order.id);
 
-        trackingSteps.innerHTML = order.trackingSteps.map((step) => `
+        const steps = Array.isArray(order.trackingSteps) ? order.trackingSteps : buildTrackingSteps(order);
+        trackingSteps.innerHTML = steps.map((step) => `
             <div class="tracking-step ${step.completed ? "completed" : ""}">
                 <span class="tracking-step-dot"></span>
                 <span>${step.label}</span>
@@ -158,7 +297,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             emptyState.hidden = true;
         }
 
-        const selectedOrderId = Number(urlParams.get("order")) || orders[0].id;
+        // normalize orders so fields expected by the UI are present
+        orders = orders.map(normalizeOrder);
+
+        const selectedOrderId = Number(urlParams.get("order")) || (orders[0] && orders[0].id);
         const activeOrder = orders.find((order) => order.id === selectedOrderId) || orders[0];
 
         ordersList.innerHTML = orders.map((order) => `
@@ -168,13 +310,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                         <h2>${order.orderNumber}</h2>
                         <div class="order-meta">
                             <span>Placed: ${formatDisplayDate(order.placedAt)}</span>
-                            <span>Payment: ${order.paymentMethod.toUpperCase()}${order.paymentLast4 ? ` ending in ${order.paymentLast4}` : ""}</span>
+                            <span>Payment: ${(order.paymentMethod||'').toUpperCase()}${order.paymentLast4 ? ` ending in ${order.paymentLast4}` : ""}</span>
                         </div>
                     </div>
                     <span class="status-badge ${order.status === "Cancelled" ? "cancelled" : ""}">${order.trackingStage}</span>
                 </div>
                 <div class="order-items">
-                    ${order.items.map((item) => `
+                    ${(Array.isArray(order.items) ? order.items : []).map((item) => `
                         <div class="order-item">
                             <img src="${item.image}" alt="${item.name}" onerror="this.src='https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=400'">
                             <div class="item-copy">
@@ -190,22 +332,21 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <div class="order-actions">
                         <button type="button" class="track-btn" data-track-order="${order.id}">Track Order</button>
                         ${order.canCancel ? `<button type="button" class="cancel-btn" data-cancel-order="${order.id}">Cancel Order</button>` : ""}
-                        ${order.trackingStage !== "Out for Delivery" ? `<button type="button" class="delete-btn" data-delete-order="${order.id}">Delete</button>` : ""}
+                        ${order.canDelete ? `<button type="button" class="delete-btn" data-delete-order="${order.id}">Delete</button>` : ""}
                     </div>
                 </div>
             </article>
         `).join("");
 
         document.querySelectorAll("[data-track-order]").forEach((button) => {
-            button.addEventListener("click", () => {
+            button.addEventListener("click", async () => {
                 const order = orders.find((entry) => entry.id === Number(button.dataset.trackOrder));
                 if (order) {
-                    renderTracking(order);
                     const nextUrl = new URL(window.location.href);
                     nextUrl.searchParams.set("order", String(order.id));
                     nextUrl.searchParams.delete("success");
                     window.history.replaceState({}, "", nextUrl);
-                    startTrackingOrder(order.id);
+                    await startTrackingOrder(order.id);
                 }
             });
         });
@@ -222,7 +363,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         body: JSON.stringify({ userId: user.id })
                     });
 
-                    orders = orders.map((entry) => entry.id === orderId ? data.order : entry);
+                    orders = orders.map((entry) => entry.id === orderId ? normalizeOrder(data.order) : entry);
                     if (successBanner) {
                         successBanner.hidden = false;
                         successBanner.querySelector("strong").textContent = "Order cancelled successfully.";
@@ -233,7 +374,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     urlParams.delete("success");
                     window.history.replaceState({}, "", `${window.location.pathname}?${urlParams.toString()}`);
                     renderOrders();
-                    renderTracking(data.order);
+                    renderTracking(normalizeOrder(data.order));
                 } catch (error) {
                     button.disabled = false;
                     button.textContent = "Cancel Order";
@@ -254,7 +395,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 button.textContent = "Deleting...";
 
                 try {
-                    await apiRequest(`/orders/${orderId}`, {
+                    await apiRequest(`/orders/${orderId}?userId=${user.id}`, {
                         method: "DELETE"
                     });
 
@@ -292,11 +433,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         renderOrders();
         
-        const trackedOrderId = Number(urlParams.get("order"));
-        const activeOrder = orders.find((o) => o.id === trackedOrderId) || orders[0];
+        // When a new order is successfully placed, show the newest order
+        // Otherwise, show the order specified in the URL parameter, or the first order
+        let activeOrder;
+        if (urlParams.get("success") === "1") {
+            // Show the most recent (first) order after successful placement
+            activeOrder = orders[0];
+        } else {
+            const trackedOrderId = Number(urlParams.get("order"));
+            activeOrder = (trackedOrderId && orders.find((o) => o.id === trackedOrderId)) || orders[0];
+        }
 
         if (activeOrder) {
-            startTrackingOrder(activeOrder.id);
+            await startTrackingOrder(activeOrder.id);
         }
     } catch (error) {
         if (ordersList) {

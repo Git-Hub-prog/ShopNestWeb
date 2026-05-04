@@ -12,6 +12,42 @@ const CATEGORIES = {
 let selectedCategory = null;
 let allProducts = [];
 let allOrders = [];
+let ordersPollInterval = null;
+let lastOrdersError = "";
+const IST_LOCALE = "en-IN";
+const IST_TIMEZONE = "Asia/Kolkata";
+
+function normalizeAdminOrder(order) {
+    if (!order) {
+        return order;
+    }
+
+    return {
+        ...order,
+        orderNumber: order.orderNumber || order.order_number || `#${order.id}`,
+        deliveryName: order.deliveryName || order.delivery_name || order.customerName || "Guest",
+        deliveryPhone: order.deliveryPhone || order.delivery_phone || "",
+        deliveryAddress: order.deliveryAddress || order.delivery_address || "",
+        deliveryCity: order.deliveryCity || order.delivery_city || "",
+        deliveryState: order.deliveryState || order.delivery_state || "",
+        deliveryZip: order.deliveryZip || order.delivery_zip || "",
+        paymentMethod: order.paymentMethod || order.payment_method || "",
+        items: Array.isArray(order.items)
+            ? order.items.map((item) => ({
+                ...item,
+                name: item.name || item.product_name || item.productName || "",
+                qty: item.qty || item.quantity || 0,
+                price: item.price || item.product_price || 0,
+                image: item.image || item.product_image || "",
+                productId: item.productId || item.product_id || item.id
+            }))
+            : []
+    };
+}
+
+function getProductById(id) {
+    return allProducts.find(p => String(p.id) === String(id) || Number(p.id) === Number(id));
+}
 
 function formatDate(value) {
     if (!value) {
@@ -23,7 +59,19 @@ function formatDate(value) {
         return value;
     }
 
-    return date.toLocaleString();
+    const parts = new Intl.DateTimeFormat(IST_LOCALE, {
+        timeZone: IST_TIMEZONE,
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true
+    }).formatToParts(date);
+
+    const get = (type) => parts.find((p) => p.type === type)?.value || "";
+    return `${get("day")}/${get("month")}/${get("year")}, ${get("hour")}:${get("minute")}:${get("second")} ${get("dayPeriod").toUpperCase()} IST`;
 }
 
 function setMessage(message, type = "success") {
@@ -94,18 +142,18 @@ function initCategorySelectors() {
     if (!addSelector || !listSelector) return;
 
     Object.entries(CATEGORIES).forEach(([key, name]) => {
-        const btn1 = createCategoryButton(key, name, (cat) => {
+        const btn1 = createCategoryButton(key, name, (cat, target) => {
             selectedCategory = cat;
             document.querySelectorAll("#category-selector .category-btn").forEach(b => b.classList.remove("selected"));
-            if (event.target.classList.contains("category-btn")) {
-                event.target.classList.add("selected");
+            if (target && target.classList.contains("category-btn")) {
+                target.classList.add("selected");
             }
         });
         
-        const btn2 = createCategoryButton(key, name, async (cat) => {
+        const btn2 = createCategoryButton(key, name, async (cat, target) => {
             document.querySelectorAll("#list-category-selector .category-btn").forEach(b => b.classList.remove("selected"));
-            if (event.target.classList.contains("category-btn")) {
-                event.target.classList.add("selected");
+            if (target && target.classList.contains("category-btn")) {
+                target.classList.add("selected");
             }
             await displayProductsByCategory(cat);
         });
@@ -122,7 +170,7 @@ function createCategoryButton(key, name, onClick) {
     btn.textContent = name;
     btn.addEventListener("click", (e) => {
         e.preventDefault();
-        onClick(key);
+        onClick(key, e.currentTarget);
     });
     return btn;
 }
@@ -235,10 +283,20 @@ async function displayProductsByCategory(category) {
 async function loadOrders() {
     try {
         const data = await apiRequest("/admin/orders");
-        allOrders = data && data.orders ? data.orders : (Array.isArray(data) ? data : []);
+        const source = data && data.orders ? data.orders : (Array.isArray(data) ? data : []);
+        allOrders = source.map(normalizeAdminOrder);
+        lastOrdersError = "";
         displayOrders();
     } catch (error) {
         allOrders = [];
+        lastOrdersError = error?.message || "Unable to load orders.";
+        setMessage(`Orders list failed to load: ${lastOrdersError}`, "error");
+        if (error?.status === 403) {
+            setTimeout(() => {
+                clearCurrentUser();
+                window.location.href = "login.html?next=admin.html";
+            }, 900);
+        }
         displayOrders();
     }
 }
@@ -248,28 +306,56 @@ function displayOrders() {
     if (!tbody) return;
     
     if (!allOrders || allOrders.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" class="table-placeholder">No orders found</td></tr>';
+        const text = lastOrdersError
+            ? `Unable to load orders (${lastOrdersError})`
+            : "No orders found";
+        tbody.innerHTML = `<tr><td colspan="6" class="table-placeholder">${text}</td></tr>`;
         return;
     }
 
     tbody.innerHTML = allOrders.map(order => {
         const itemCount = order.items ? order.items.length : 0;
         const total = order.total || order.subtotal || 0;
-        const status = order.status || "pending";
+        const status = order.status || "Processing";
+        const customer = order.deliveryName || order.customerName || "Guest";
+
+        // check current availability for items using allProducts snapshot
+        const anyUnavailable = (order.items || []).some(it => {
+            const pid = it.productId || it.id;
+            const prod = getProductById(pid);
+            return !prod || !prod.inStock;
+        });
+
+        const availabilityBadge = anyUnavailable ? '<span style="color:#b12704;font-weight:700;">(Some items unavailable)</span>' : '';
+
+        // Build product names and quantities
+        const productsList = (order.items || [])
+            .map(it => {
+                const name = it.product_name || it.name || 'Unknown Product';
+                const qty = it.quantity || it.qty || 0;
+                return `${name} x${qty}`;
+            })
+            .join(', ');
 
         return `
             <tr>
                 <td>#${order.id}</td>
-                <td>${order.deliveryName || order.customerName || "Guest"}</td>
-                <td>${itemCount} item${itemCount !== 1 ? 's' : ''}</td>
+                <td>${customer}</td>
+                <td>
+                    <div style="max-width: 300px; word-wrap: break-word;">
+                        ${productsList || 'No items'} 
+                        ${availabilityBadge}
+                    </div>
+                </td>
                 <td>₹${Number(total).toLocaleString('en-IN')}</td>
                 <td>
                     <select class="status-dropdown" onchange="updateOrderStatus(${order.id}, this.value)">
-                        <option value="pending" ${status === 'pending' ? 'selected' : ''}>Pending</option>
-                        <option value="packed" ${status === 'packed' ? 'selected' : ''}>Packed</option>
-                        <option value="shipped" ${status === 'shipped' ? 'selected' : ''}>Shipped</option>
-                        <option value="out-for-delivery" ${status === 'out-for-delivery' ? 'selected' : ''}>Out for Delivery</option>
-                        <option value="delivered" ${status === 'delivered' ? 'selected' : ''}>Delivered</option>
+                        <option value="Processing" ${status === 'Processing' ? 'selected' : ''}>Processing</option>
+                        <option value="Packed" ${status === 'Packed' ? 'selected' : ''}>Packed</option>
+                        <option value="Shipped" ${status === 'Shipped' ? 'selected' : ''}>Shipped</option>
+                        <option value="Out for Delivery" ${status === 'Out for Delivery' ? 'selected' : ''}>Out for Delivery</option>
+                        <option value="Delivered" ${status === 'Delivered' ? 'selected' : ''}>Delivered</option>
+                        <option value="Cancelled" ${status === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
                     </select>
                 </td>
                 <td><button class="btn-small" onclick="viewOrderDetails(${order.id})" style="cursor:pointer;">View</button></td>
@@ -301,7 +387,7 @@ function viewOrderDetails(orderId) {
     details += `Phone: ${order.deliveryPhone || "N/A"}\n`;
     details += `Address: ${order.deliveryAddress || "N/A"}\n`;
     details += `${order.deliveryCity || ""}, ${order.deliveryState || ""} ${order.deliveryZip || ""}\n`;
-    details += `Status: ${order.status || "pending"}\n`;
+    details += `Status: ${order.status || "Processing"}\n`;
     details += `Payment Method: ${order.paymentMethod || "N/A"}\n`;
     details += `Subtotal: ₹${Number(order.subtotal || 0).toLocaleString('en-IN')}\n`;
     details += `Tax: ₹${Number(order.tax || 0).toLocaleString('en-IN')}\n`;
@@ -309,11 +395,17 @@ function viewOrderDetails(orderId) {
     details += `Total: ₹${Number(order.total || 0).toLocaleString('en-IN')}\n\n`;
     details += `Items:\n`;
     
-    if (order.items && order.items.length > 0) {
-        order.items.forEach(item => {
-            details += `- ${item.name} x${item.qty} @ ₹${Number(item.price).toLocaleString('en-IN')}\n`;
-        });
-    }
+        if (order.items && order.items.length > 0) {
+            order.items.forEach(item => {
+                const name = item.name || '';
+                const qty = item.qty || 0;
+                const price = item.price || 0;
+                const pid = item.productId || item.id;
+                const prod = getProductById(pid);
+                const availability = prod ? (prod.inStock ? `In Stock (${prod.stock})` : 'Out of Stock') : 'Product not found';
+                details += `- ${name} x${qty} @ ₹${Number(price).toLocaleString('en-IN')} — ${availability}\n`;
+            });
+        }
     
     alert(details);
 }
@@ -369,13 +461,6 @@ function renderUsers(users) {
                 } catch (error) {
                     setMessage(error.message, "error");
                 }
-
-                // Clear polling when user leaves the admin page
-                window.addEventListener("beforeunload", () => {
-                    if (ordersPollInterval) {
-                        clearInterval(ordersPollInterval);
-                    }
-                });
             },
             isProtectedAdmin
         ));
@@ -421,6 +506,13 @@ async function loadUsers() {
         const data = await apiRequest("/admin/users");
         renderUsers(data.users || []);
     } catch (error) {
+        setMessage(`Users list failed to load: ${error?.message || "Unknown error"}`, "error");
+        if (error?.status === 403) {
+            setTimeout(() => {
+                clearCurrentUser();
+                window.location.href = "login.html?next=admin.html";
+            }, 900);
+        }
         renderUsers([]);
     }
 }
@@ -443,6 +535,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
     }
 
+    if (!currentUser?.sessionToken) {
+        setMessage("Your admin session is missing. Please login again.", "error");
+        setTimeout(() => {
+            clearCurrentUser();
+            window.location.href = "login.html?next=admin.html";
+        }, 1200);
+        return;
+    }
+
     // Initialize tabs and product/order management
     initTabs();
     initCategorySelectors();
@@ -453,7 +554,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await loadOrders();
 
     // Poll for new orders every 8 seconds so admin sees recent bookings without manual refresh
-    let ordersPollInterval = setInterval(async () => {
+    ordersPollInterval = setInterval(async () => {
         try {
             await loadOrders();
         } catch (err) {
@@ -479,4 +580,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         setMessage(error.message, "error");
         renderUsers([]);
     }
+
+    // Clear polling when user leaves the admin page
+    window.addEventListener("beforeunload", () => {
+        if (ordersPollInterval) {
+            clearInterval(ordersPollInterval);
+        }
+    });
 });
