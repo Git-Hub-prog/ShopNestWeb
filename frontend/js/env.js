@@ -1,6 +1,6 @@
 window.APP_CONFIG = window.APP_CONFIG || {};
 
-window.APP_CONFIG.API_URL = "http://localhost:3000";
+window.APP_CONFIG.API_URL = "https://shopnestweb-backend.onrender.com";
 
 // If the page is opened from a different origin (e.g. Live Server at 127.0.0.1:5500)
 // and a backend API URL is configured and reachable, redirect the browser to
