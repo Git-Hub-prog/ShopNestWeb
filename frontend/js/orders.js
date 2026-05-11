@@ -149,13 +149,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         order.total = sourceOrder.total || order.total;
 
         // Keep the buttons aligned with the backend rules.
-        const restrictedStages = ['shipped', 'out for delivery', 'delivered'];
         const normalizedStage = String(order.trackingStage || '').trim().toLowerCase();
         const normalizedStatus = String(order.status || '').trim().toLowerCase();
-        const hasReachedShipping = restrictedStages.includes(normalizedStage) || restrictedStages.includes(normalizedStatus);
         const isCancelled = normalizedStatus === 'cancelled' || normalizedStage === 'cancelled';
-        order.canCancel = !hasReachedShipping && !isCancelled;
-        order.canDelete = isCancelled || !hasReachedShipping;
+        const isDelivered = normalizedStatus === 'delivered' || normalizedStage === 'delivered';
+        const isShipped = normalizedStatus === 'shipped' || normalizedStage === 'shipped' || normalizedStatus === 'out for delivery' || normalizedStage === 'out for delivery';
+        
+        order.canCancel = !isShipped && !isCancelled && !isDelivered;
+        order.canDelete = isCancelled || isDelivered;
 
         return order;
     }

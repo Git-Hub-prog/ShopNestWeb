@@ -139,8 +139,9 @@ function canCancelOrder(orderRow) {
 function canDeleteOrder(orderRow) {
   const status = String(orderRow.status || '').trim().toLowerCase();
   const trackingStage = String(orderRow.tracking_stage || '').trim().toLowerCase();
-  const restricted = new Set(['shipped', 'out for delivery', 'delivered']);
-  return status === 'cancelled' || trackingStage === 'cancelled' || (!restricted.has(status) && !restricted.has(trackingStage));
+  // Can delete if: cancelled OR delivered (to clear history)
+  // Cannot delete if: processing, order confirmed, packed, shipped, or out for delivery
+  return status === 'cancelled' || trackingStage === 'cancelled' || status === 'delivered' || trackingStage === 'delivered';
 }
 
 async function createDatabaseIfMissing() {
@@ -568,6 +569,32 @@ async function registerUser(name, email, password) {
   return { user, sessionToken };
 }
 
+async function createAdminUser(name, email, password) {
+  await ensureDatabaseReady();
+  const normalizedEmail = String(email).trim().toLowerCase();
+
+  const [existingRows] = await pool.execute('SELECT id FROM users WHERE email = ?', [normalizedEmail]);
+  if (existingRows.length) {
+    // User exists, update to admin if not already
+    await pool.execute('UPDATE users SET is_admin = 1 WHERE email = ?', [normalizedEmail]);
+    const user = await getUserById(existingRows[0].id);
+    return { user, message: 'User updated to admin' };
+  }
+
+  const sessionToken = crypto.randomBytes(32).toString('hex');
+  const passwordHash = hashPassword(password);
+  const createdAt = new Date();
+
+  const [result] = await pool.execute(
+    `INSERT INTO users (name, email, password_hash, session_token, is_admin, is_blocked, created_at)
+     VALUES (?, ?, ?, ?, 1, 0, ?)`,
+    [String(name).trim(), normalizedEmail, passwordHash, sessionToken, createdAt]
+  );
+
+  const user = await getUserById(result.insertId);
+  return { user, sessionToken, message: 'Admin user created successfully' };
+}
+
 async function loginUser(email, password) {
   await ensureDatabaseReady();
   const normalizedEmail = String(email).trim().toLowerCase();
@@ -975,18 +1002,22 @@ async function createOrder(userId, delivery, payment) {
 
     const orderId = Number(orderResult.insertId);
 
-    for (const item of cartRows) {
+    // Batch insert all order items at once instead of individual queries
+    if (cartRows.length > 0) {
+      const valuePlaceholders = cartRows.map(() => '(?, ?, ?, ?, ?, ?)').join(', ');
+      const flatValues = cartRows.flatMap(item => [
+        orderId,
+        Number(item.product_id),
+        String(item.name || ''),
+        Number(item.price || 0),
+        String(item.image || ''),
+        Number(item.quantity || 0)
+      ]);
+
       await connection.execute(
         `INSERT INTO order_items (order_id, product_id, product_name, product_price, product_image, quantity)
-         VALUES (?, ?, ?, ?, ?, ?)`,
-        [
-          orderId,
-          Number(item.product_id),
-          String(item.name || ''),
-          Number(item.price || 0),
-          String(item.image || ''),
-          Number(item.quantity || 0)
-        ]
+         VALUES ${valuePlaceholders}`,
+        flatValues
       );
     }
 
@@ -1148,6 +1179,7 @@ module.exports = {
   getUserBySessionToken,
   getAdminUserFromToken,
   registerUser,
+  createAdminUser,
   loginUser,
   getCartItems,
   addCartItem,

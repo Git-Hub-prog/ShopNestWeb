@@ -100,6 +100,11 @@ function renderProducts(products) {
                 return;
             }
 
+            // Show loading state
+            button.disabled = true;
+            button.textContent = "Adding...";
+            button.style.backgroundColor = "#ccc";
+
             try {
                 await apiRequest("/cart/items", {
                     method: "POST",
@@ -122,6 +127,7 @@ function renderProducts(products) {
 
                 button.textContent = "Added!";
                 button.style.backgroundColor = "#f0c14b";
+                button.disabled = false;
                 updateCartBadge();
 
                 setTimeout(() => {
@@ -139,6 +145,11 @@ function renderProducts(products) {
                 // Re-sync with backend so stock remains accurate across tabs/users.
                 refreshVisibleProductStock().catch(() => {});
             } catch (error) {
+                // Restore button state on error
+                button.disabled = false;
+                button.textContent = "Add to Cart";
+                button.style.backgroundColor = "#ffd814";
+
                 if ((error?.message || "").toLowerCase().includes("user or product not found")) {
                     clearCurrentUser();
                     window.alert("Your session expired. Please sign in again.");

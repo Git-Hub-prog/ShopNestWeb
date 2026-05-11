@@ -1,13 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const homeLogo = document.getElementById("home-logo");
     const passwordInput = document.getElementById("password");
     const strengthBar = document.getElementById("strength-bar");
     const strengthLabel = document.getElementById("strength-label");
     const form = document.getElementById("register-form");
     const errorMsg = document.getElementById("error-msg");
     const errorText = document.getElementById("error-text");
-    const adminShortcut = document.getElementById("admin-shortcut");
-    const adminShortcutBtn = document.getElementById("admin-shortcut-btn");
+    const successScreen = document.getElementById("success-screen");
+    const registerCard = document.getElementById("registerCard");
+    const registerCardInner = document.getElementById("registerCardInner");
+    const stayHereBtn = document.getElementById("stay-here-btn");
 
     function setupToggle(toggleId, inputId) {
         const toggle = document.getElementById(toggleId);
@@ -23,21 +24,19 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    if (homeLogo) {
-        homeLogo.addEventListener("click", () => {
-            window.location.href = "index.html";
-        });
-    }
-
-    if (adminShortcut && adminShortcutBtn && isLocalProjectHost()) {
-        adminShortcut.hidden = false;
-        adminShortcutBtn.addEventListener("click", () => {
-            resumeAdminMode(getReturnPage("index.html"));
-        });
-    }
-
     setupToggle("toggle-pw1", "password");
     setupToggle("toggle-pw2", "confirm-password");
+
+    if (stayHereBtn) {
+        stayHereBtn.addEventListener("click", () => {
+            if (successScreen) {
+                successScreen.classList.remove("show");
+            }
+            if (registerCard) {
+                registerCard.style.visibility = "visible";
+            }
+        });
+    }
 
     if (!passwordInput || !strengthBar || !strengthLabel || !form || !errorMsg || !errorText) {
         return;
@@ -76,59 +75,75 @@ document.addEventListener("DOMContentLoaded", () => {
         const email = document.getElementById("mobile").value.trim();
         const password = passwordInput.value.trim();
         const confirm = document.getElementById("confirm-password").value.trim();
-        errorMsg.style.display = "none";
+        errorMsg.classList.remove("show");
 
         if (!name) {
-            errorText.textContent = " Please enter your name.";
-            errorMsg.style.display = "block";
+            errorText.textContent = "Please enter your name.";
+            errorMsg.classList.add("show");
             return;
         }
 
         if (!email) {
-            errorText.textContent = " Please enter your email or mobile number.";
-            errorMsg.style.display = "block";
+            errorText.textContent = "Please enter your email or mobile number.";
+            errorMsg.classList.add("show");
             return;
         }
 
         if (password.length < 6) {
-            errorText.textContent = " Passwords must be at least 6 characters.";
-            errorMsg.style.display = "block";
+            errorText.textContent = "Passwords must be at least 6 characters.";
+            errorMsg.classList.add("show");
             return;
         }
 
         if (password !== confirm) {
-            errorText.textContent = " Passwords do not match. Please try again.";
-            errorMsg.style.display = "block";
+            errorText.textContent = "Passwords do not match. Please try again.";
+            errorMsg.classList.add("show");
             return;
         }
 
         try {
+            const registerButton = document.getElementById("register-btn");
+            if (registerButton) {
+                registerButton.disabled = true;
+                registerButton.textContent = "Creating account...";
+            }
+
             const data = await apiRequest("/auth/register", {
                 method: "POST",
                 body: JSON.stringify({ name, email, password })
             });
 
             setCurrentUser(Object.assign({}, data.user, { sessionToken: data.sessionToken }));
-            document.getElementById("register-box").style.display = "none";
-            const successScreen = document.getElementById("success-screen");
-            // Show created_at in IST if available
-            const createdAtText = document.getElementById("created-at-text");
-            if (createdAtText) {
-                const created = data.user && data.user.created_at ? data.user.created_at : new Date().toISOString();
-                const d = new Date(created);
-                try {
-                    const parts = new Intl.DateTimeFormat("en-IN", { timeZone: "Asia/Kolkata", day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: true }).formatToParts(d);
-                    const get = (type) => parts.find((p) => p.type === type)?.value || "";
-                    createdAtText.textContent = `Account created: ${get("day")}/${get("month")}/${get("year")}, ${get("hour")}:${get("minute")}:${get("second")} ${get("dayPeriod").toUpperCase()} IST`;
-                } catch (e) {
-                    createdAtText.textContent = `Account created: ${new Date(created).toString()}`;
-                }
-            }
-            successScreen.style.display = "flex";
-            successScreen.scrollIntoView({ behavior: "smooth" });
+            // Redirect to home page after successful registration
+            window.location.href = "index.html";
         } catch (error) {
-            errorText.textContent = ` ${error.message}`;
-            errorMsg.style.display = "block";
+            errorText.textContent = error.message || "Registration failed. Please try again.";
+            errorMsg.classList.add("show");
+        } finally {
+            const registerButton = document.getElementById("register-btn");
+            if (registerButton) {
+                registerButton.disabled = false;
+                registerButton.textContent = "Create your ShopNest account";
+            }
         }
     });
+
+    if (registerCardInner) {
+        document.addEventListener("mousemove", (event) => {
+            const rect = registerCardInner.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            const dx = (event.clientX - cx) / (rect.width / 2);
+            const dy = (event.clientY - cy) / (rect.height / 2);
+            const rx = dy * -8;
+            const ry = dx * 8;
+            registerCardInner.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateY(-6px)`;
+            registerCardInner.style.transition = 'transform 0.1s ease-out';
+        });
+
+        document.addEventListener("mouseleave", () => {
+            registerCardInner.style.transform = '';
+            registerCardInner.style.transition = 'transform 1s ease-out';
+        });
+    }
 });

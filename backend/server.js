@@ -9,6 +9,7 @@ const {
   getCategories,
   getProductsList,
   registerUser,
+  createAdminUser,
   loginUser,
   getCartItems,
   addCartItem,
@@ -37,12 +38,38 @@ app.use(cors({
 }));
 
 app.use(express.json());
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 // ✅ Helper
 function sendError(res, error) {
   return res.status(error.status || 500).json({
     error: error.message || 'Request failed.'
   });
+}
+
+function getPublicBackendUrl() {
+  const candidates = [
+    process.env.BACKEND_URL,
+    process.env.PUBLIC_URL,
+    process.env.APP_URL,
+    process.env.RENDER_EXTERNAL_URL,
+    process.env.RAILWAY_STATIC_URL,
+    process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : ''
+  ];
+
+  return candidates.find((value) => String(value || '').trim()) || '';
+}
+
+function getDatabaseConnectionSummary() {
+  if (process.env.DATABASE_URL) {
+    return process.env.DATABASE_URL;
+  }
+
+  const host = process.env.DB_HOST || '127.0.0.1';
+  const port = process.env.DB_PORT || '3306';
+  const database = process.env.DB_NAME || 'shopnest';
+  const user = process.env.DB_USER || 'root';
+  return `mysql://${user}:***@${host}:${port}/${database}`;
 }
 
 // ✅ Admin middleware
@@ -173,6 +200,44 @@ app.post('/api/cart/items', async (req, res) => {
 });
 
 // ✅ Orders
+app.get('/api/orders', async (req, res) => {
+  try {
+    const userId = Number(req.query.userId);
+
+    if (!userId) {
+      return res.status(400).json({ error: 'userId required' });
+    }
+
+    res.json({ orders: await listOrdersForUser(userId) });
+  } catch (error) {
+    sendError(res, error);
+  }
+});
+
+app.get('/api/orders/:id', async (req, res) => {
+  try {
+    const orderId = Number(req.params.id);
+    const userId = Number(req.query.userId);
+
+    if (!orderId) {
+      return res.status(400).json({ error: 'order id required' });
+    }
+
+    if (!userId) {
+      return res.status(400).json({ error: 'userId required' });
+    }
+
+    const order = await getOrderForUser(orderId, userId);
+    if (!order) {
+      return res.status(404).json({ error: 'Order not found' });
+    }
+
+    res.json({ order });
+  } catch (error) {
+    sendError(res, error);
+  }
+});
+
 app.post('/api/orders', async (req, res) => {
   try {
     const userId = Number(req.body.userId);
@@ -184,6 +249,48 @@ app.post('/api/orders', async (req, res) => {
     const order = await createOrder(userId, req.body.delivery, req.body.payment);
     res.status(201).json({ order });
 
+  } catch (error) {
+    sendError(res, error);
+  }
+});
+
+// Cancel an order (user)
+app.patch('/api/orders/:id/cancel', async (req, res) => {
+  try {
+    const orderId = Number(req.params.id);
+    const userId = Number(req.body.userId || req.query.userId);
+
+    if (!orderId) {
+      return res.status(400).json({ error: 'order id required' });
+    }
+
+    if (!userId) {
+      return res.status(400).json({ error: 'userId required' });
+    }
+
+    const order = await cancelOrder(orderId, userId);
+    res.json({ order, message: 'Order cancelled.' });
+  } catch (error) {
+    sendError(res, error);
+  }
+});
+
+// Delete an order from user history
+app.delete('/api/orders/:id', async (req, res) => {
+  try {
+    const orderId = Number(req.params.id);
+    const userId = Number(req.query.userId || req.body.userId);
+
+    if (!orderId) {
+      return res.status(400).json({ error: 'order id required' });
+    }
+
+    if (!userId) {
+      return res.status(400).json({ error: 'userId required' });
+    }
+
+    await deleteOrder(orderId, userId);
+    res.json({ ok: true });
   } catch (error) {
     sendError(res, error);
   }
@@ -232,14 +339,49 @@ app.post('/api/admin/products', requireAdmin, async (req, res) => {
   }
 });
 
+// ✅ Setup endpoint to create admin user (one-time use)
+app.post('/api/setup/create-admin', async (req, res) => {
+  try {
+    const { email, password, name } = req.body;
+    if (!email || !password || !name) {
+      return res.status(400).json({ error: 'Missing email, password, or name' });
+    }
+
+    const result = await createAdminUser(name, email, password);
+    res.status(201).json({ 
+      ok: true, 
+      message: result.message,
+      admin: result.user 
+    });
+  } catch (error) {
+    console.error('Setup error:', error);
+    sendError(res, error);
+  }
+});
+
 // ✅ Start server
 async function startServer() {
   try {
     await ensureDatabaseReady();
 
-    app.listen(port, () => {
+    const server = app.listen(port, () => {
       console.log(`🚀 Server running on port ${port}`);
-      console.log(`📦 DB: ${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`);
+      const localUrl = `http://localhost:${port}`;
+      const publicUrl = getPublicBackendUrl();
+      console.log(`🌐 Local URL: ${localUrl}`);
+      if (publicUrl) {
+        console.log(`🔗 Public URL: ${publicUrl}`);
+      }
+      console.log(`📦 DB connection: ${getDatabaseConnectionSummary()}`);
+    });
+
+    server.on('error', (error) => {
+      if (error.code === 'EADDRINUSE') {
+        console.error(`❌ Port ${port} is already in use. Stop the existing server or change PORT in backend/.env.`);
+        process.exit(1);
+      }
+
+      throw error;
     });
 
   } catch (error) {

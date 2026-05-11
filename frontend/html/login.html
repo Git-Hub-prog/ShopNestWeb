@@ -1,81 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShopNest Sign-In</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <link rel="stylesheet" href="../css/login-register.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShopNest Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="../css/login-modern.css">
 </head>
-<body class="auth-page">
-    <div class="login-header">
-        <div class="logo" id="home-logo" title="Go to ShopNest Home"></div>
-    </div>
+<body>
 
-    <div class="login-box" id="login-box">
-        <h1>Sign in</h1>
+<div class="stars" id="stars"></div>
+<div class="orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+</div>
+<div class="grid-floor"></div>
+<div id="particles"></div>
 
-        <div class="error-msg" id="error-msg">
-            <i class="fa-solid fa-circle-exclamation"></i>
-            <span id="error-text"> Your password is incorrect or this account doesn't exist.</span>
+<div class="scene">
+
+    <div class="brand-side">
+        <div class="logo-wrap">
+            <div class="logo-icon">🛍️</div>
+            <div class="logo-text">ShopNest</div>
         </div>
 
-        <form id="login-form" novalidate>
-            <div class="form-group">
-                <label for="email">Email or mobile phone number</label>
-                <input type="text" id="email" placeholder="Enter email or phone" autocomplete="username">
+        <div class="brand-headline">
+            Where Every<br>Cart Feels Like<br><span>Home</span>
+        </div>
+
+        <p class="brand-sub">Discover millions of products curated just for you. Shop smarter, live better.</p>
+
+        <div class="product-cards">
+            <div class="p-card" style="--fc-d:3.8s; --fc-delay:0s;">
+                <div class="emoji">👟</div>
+                <div class="p-name">Sneakers</div>
+                <div class="p-price">$89</div>
+            </div>
+            <div class="p-card" style="--fc-d:4.2s; --fc-delay:-1.2s;">
+                <div class="emoji">💻</div>
+                <div class="p-name">Laptops</div>
+                <div class="p-price">$999</div>
+            </div>
+            <div class="p-card" style="--fc-d:3.5s; --fc-delay:-2.4s;">
+                <div class="emoji">💎</div>
+                <div class="p-name">Jewelry</div>
+                <div class="p-price">$249</div>
+            </div>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-item"><div class="stat-num">5<span>M+</span></div><div class="stat-label">Products</div></div>
+            <div class="stat-item"><div class="stat-num">2<span>M+</span></div><div class="stat-label">Customers</div></div>
+            <div class="stat-item"><div class="stat-num">180<span>+</span></div><div class="stat-label">Countries</div></div>
+        </div>
+    </div>
+
+    <div class="login-card" id="loginCard">
+        <div class="card-inner" id="cardInner">
+            <div class="card-header">
+                <div class="card-title">Welcome Back 👋</div>
+                <div class="card-subtitle">Sign in to your ShopNest account</div>
             </div>
 
-            <div class="form-group">
-                <label for="password">Password</label>
-                <div class="password-wrapper">
-                    <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password">
-                    <span class="toggle-password" id="toggle-password">Show</span>
+            <div class="error-msg" id="error-msg">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <span id="error-text">Error message</span>
+            </div>
+
+            <form id="login-form" novalidate>
+                <div class="input-group">
+                    <label class="input-label" for="email">Email Address</label>
+                    <div class="input-wrap">
+                        <input type="email" class="form-input" id="email" placeholder="you@example.com" autocomplete="username">
+                        <svg class="input-icon" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    </div>
                 </div>
+
+                <div class="input-group">
+                    <label class="input-label" for="password">Password</label>
+                    <div class="input-wrap">
+                        <input type="password" class="form-input" id="password" placeholder="••••••••" autocomplete="current-password">
+                        <svg class="input-icon" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                        <span class="toggle-password" id="toggle-password">Show</span>
+                    </div>
+                </div>
+
+                <div class="forgot-link"><a href="#">Forgot password?</a></div>
+
+                <button type="submit" class="btn-login" id="signin-btn">Sign In to ShopNest →</button>
+
+                <p class="legal-text" style="margin-top: 14px;">
+                    By continuing, you agree to ShopNest's <a href="#">Conditions of Use</a> and <a href="#">Privacy Notice</a>.
+                </p>
+            </form>
+
+            <div class="signup-row">
+                New to ShopNest?
+                <a href="register.html" class="signup-button">Create account</a>
             </div>
 
-            <button type="submit" class="btn-signin" id="signin-btn">Continue</button>
+            <div class="divider">
+                <div class="divider-line"></div>
+                <div class="divider-text">or continue with</div>
+                <div class="divider-line"></div>
+            </div>
 
-            <p class="legal-text">
-                By continuing, you agree to ShopNest's
-                <a href="#">Conditions of Use</a> and
-                <a href="#">Privacy Notice</a>.
-            </p>
-        </form>
-
-        <div class="divider"><span>New to ShopNest?</span></div>
-    </div>
-
-    <div class="new-account" id="new-account-box">
-        <div class="new-account-box">
-            <p>Don't have an account?</p>
-            <a href="register.html" class="btn-create" id="create-account-btn">Create your ShopNest account</a>
+            <div class="social-btns">
+                <button class="btn-social" type="button"><span class="s-icon">🔵</span> Google</button>
+                <button class="btn-social" type="button"><span class="s-icon">🍎</span> Apple</button>
+                <button class="btn-social" type="button"><span class="s-icon">📘</span> Facebook</button>
+            </div>
         </div>
     </div>
 
-    <div class="admin-shortcut" id="admin-shortcut" hidden>
-        <p>Project admin?</p>
-        <button type="button" class="btn-admin" id="admin-shortcut-btn">Continue as Admin</button>
-    </div>
+</div>
 
-    <div class="success-screen login-success" id="success-screen">
-        <i class="fa-solid fa-circle-check"></i>
-        <h2>Welcome back!</h2>
-        <p>You have successfully signed in to your ShopNest account.</p>
-        <a href="index.html" class="btn-home">Go to Homepage</a>
-    </div>
+<div class="success-screen" id="success-screen">
+    <div class="success-icon"><i class="fas fa-check"></i></div>
+    <h2>Welcome back!</h2>
+    <p>You have successfully signed in to your ShopNest account.</p>
+    <button class="home-btn" id="home-btn">Go to Homepage</button>
+</div>
 
-    <div class="login-footer">
-        <div class="login-footer-links">
-            <a href="#">Conditions of Use</a>
-            <a href="#">Privacy Notice</a>
-            <a href="#">Help</a>
-        </div>
-        <div class="login-footer-copy">&copy; 2026 ShopNest. All rights reserved.</div>
-    </div>
+<script src="../js/env.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/login.js"></script>
 
-    <script src="../js/env.js"></script>
-    <script src="../js/api.js"></script>
-    <script src="../js/login.js"></script>
+<script>
+    const starsEl = document.getElementById('stars');
+    for (let i = 0; i < 120; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        const size = Math.random() * 2.5 + 0.5;
+        star.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*5}s;--delay:${-Math.random()*8}s;--min-o:${0.05+Math.random()*0.2};--max-o:${0.5+Math.random()*0.5};`;
+        starsEl.appendChild(star);
+    }
+
+    const particles = document.getElementById('particles');
+    const colors = ['#ff6b35', '#ff9a3c', '#ffd166', '#7c3aed', '#0ea5e9'];
+    for (let i = 0; i < 18; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        const size = Math.random() * 5 + 2;
+        particle.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;background:${colors[Math.floor(Math.random()*colors.length)]};--pd:${8+Math.random()*16}s;--pdelay:${-Math.random()*20}s;opacity:0.6;`;
+        particles.appendChild(particle);
+    }
+
+    const cardInner = document.getElementById('cardInner');
+    document.addEventListener('mousemove', (event) => {
+        const rect = cardInner.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = (event.clientX - cx) / (rect.width / 2);
+        const dy = (event.clientY - cy) / (rect.height / 2);
+        const rx = dy * -8;
+        const ry = dx * 8;
+        cardInner.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateY(-6px)`;
+        cardInner.style.transition = 'transform 0.1s ease-out';
+    });
+
+    document.addEventListener('mouseleave', () => {
+        cardInner.style.transform = '';
+        cardInner.style.transition = 'transform 1s ease-out';
+    });
+</script>
 </body>
 </html>
