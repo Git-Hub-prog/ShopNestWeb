@@ -14,6 +14,7 @@ let allProducts = [];
 let allOrders = [];
 let ordersPollInterval = null;
 let lastOrdersError = "";
+let pollingPaused = false;  // Flag to pause polling during user interactions
 const IST_LOCALE = "en-IN";
 const IST_TIMEZONE = "Asia/Kolkata";
 
@@ -358,7 +359,7 @@ function displayOrders() {
                 </td>
                 <td>₹${Number(total).toLocaleString('en-IN')}</td>
                 <td>
-                    <select class="status-dropdown" onchange="updateOrderStatus(${order.id}, this.value)">
+                    <select class="status-dropdown" onchange="updateOrderStatus(${order.id}, this.value)" onfocus="pauseOrderPolling()" onblur="resumeOrderPolling()">
                         <option value="Processing" ${status === 'Processing' ? 'selected' : ''}>Processing</option>
                         <option value="Packed" ${status === 'Packed' ? 'selected' : ''}>Packed</option>
                         <option value="Shipped" ${status === 'Shipped' ? 'selected' : ''}>Shipped</option>
@@ -379,11 +380,22 @@ async function updateOrderStatus(orderId, newStatus) {
             method: "PATCH",
             body: JSON.stringify({ status: newStatus })
         });
-        await loadOrders();
+        // Show confirmation message before refreshing table
         setMessage(`Order #${orderId} status updated to: ${newStatus}`);
+        // Wait 1.5 seconds to let user see confirmation before table refreshes
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        await loadOrders();
     } catch (error) {
         setMessage("Error updating order: " + error.message, "error");
     }
+}
+
+function pauseOrderPolling() {
+    pollingPaused = true;
+}
+
+function resumeOrderPolling() {
+    pollingPaused = false;
 }
 
 function viewOrderDetails(orderId) {
@@ -564,6 +576,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Poll for new orders more frequently so admin updates feel near-real-time
     ordersPollInterval = setInterval(async () => {
+        // Skip polling if user is interacting with dropdowns
+        if (pollingPaused) {
+            return;
+        }
         try {
             await loadOrders();
         } catch (err) {
