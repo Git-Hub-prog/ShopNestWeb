@@ -139,89 +139,16 @@ body.cart-page {
 }
 
 @media (max-width: 480px) {
-    .navbar {
-        height: auto;
-        padding: 8px 10px;
-        gap: 8px;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-    }
-
-    .nav-title {
-        order: 2;
-        flex: 1 1 auto;
-        text-align: center;
-        font-size: 1rem;
-    }
-        flex: 1;
-        text-align: center;
-        font-size: 1rem;
-    }
-    .nav-title small { display: none; }
-
     .nav-cart {
-        order: 1;
         font-size: 0.82rem;
-        padding: 6px 4px;
-        flex: 0 0 auto;
-        white-space: nowrap;
     }
 
     .nav-cart i {
         font-size: 1.5rem;
-        margin-right: 3px;
     }
 
-    .nav-orders {
-        display: none;
-    }
-
-    .nav-session {
-        order: 2;
-        min-width: auto;
-        gap: 6px;
-        padding: 6px 4px;
-        flex: 0 0 auto;
-        margin-left: auto;
-    }
-
-    .nav-session-text {
-        display: none;
-    }
-
-    .nav-session .session-link {
-        display: none;
-    }
-
-    .nav-session .session-btn {
-        padding: 6px 8px;
-        font-size: 0.65rem;
-    }
-
-    .panel {
-        padding: 8px 12px;
-        font-size: 0.85rem;
-    }
-
-    /* Collapse the full search bar on ultra-small screens to prevent scattering */
-    .nav-search {
-        display: none !important;
-    }
-
-    .nav-cart {
-        order: 1;
-        flex: 0 0 auto;
-        margin-right: 6px;
-    }
-
-    .nav-session {
-        order: 2;
-        margin-left: auto;
-        flex: 0 0 auto;
-    }
     .cart-main h1 {
         font-size: 1.25rem;
-        margin-bottom: 12px;
     }
 
     .cart-item {
@@ -230,7 +157,7 @@ body.cart-page {
 
     .cart-item img {
         width: 100%;
-        max-width: 150px;
+        max-width: 180px;
         height: auto;
         aspect-ratio: 1 / 1;
     }
@@ -244,80 +171,6 @@ body.cart-page {
     }
 }
 
-@media (max-width: 320px) {
-    .navbar {
-        height: auto;
-        padding: 6px 8px;
-        gap: 6px;
-    }
-
-    .nav-cart {
-        font-size: 0.75rem;
-        padding: 4px 0;
-    }
-
-    .nav-cart i {
-        font-size: 1.3rem;
-        margin-right: 2px;
-    }
-
-    .nav-session {
-        gap: 4px;
-        padding: 4px 0;
-    }
-
-    .nav-session .session-btn {
-        padding: 4px 6px;
-        font-size: 0.6rem;
-    }
-
-    .panel {
-        padding: 6px 10px;
-        font-size: 0.8rem;
-    }
-
-    .page-wrap {
-        margin: 12px auto;
-        padding: 0 8px;
-    }
-
-    .cart-main,
-    .summary-box {
-        padding: 12px;
-    }
-
-    .cart-main h1 {
-        font-size: 1.1rem;
-        margin-bottom: 8px;
-    }
-
-    .cart-header-row {
-        font-size: 0.85rem;
-    }
-
-    .cart-item {
-        padding: 12px 0;
-        gap: 10px;
-    }
-
-    .cart-item img {
-        max-width: 120px;
-    }
-
-    .item-name {
-        font-size: 0.9rem;
-    }
-
-    .item-price {
-        font-size: 0.95rem;
-    }
-
-    .btn-checkout {
-        font-size: 0.85rem;
-        padding: 9px;
-    }
-}
-
 .navbar {
     height: 60px;
     background-color: #0f1111;
@@ -327,134 +180,7 @@ body.cart-page {
     justify-content: space-between;
     padding: 0 20px;
 }
-    .navbar {
-        height: auto;
-        padding: 6px 8px;
-        gap: 4px;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-    }
 
-    .nav-cart {
-        order: 1;
-        font-size: 0.75rem;
-        padding: 4px 0;
-        flex: 0 0 auto;
-        white-space: nowrap;
-    }
-
-    .nav-cart i {
-        font-size: 1.2rem;
-        margin-right: 2px;
-    }
-
-    .nav-session {
-        order: 2;
-        min-width: auto;
-        gap: 4px;
-        padding: 4px 0;
-        flex: 0 0 auto;
-        margin-left: auto;
-    }
-
-    .nav-session .session-btn {
-        padding: 4px 6px;
-        font-size: 0.6rem;
-    }
-
-    .panel {
-        padding: 6px 10px;
-        font-size: 0.8rem;
-    }
-
-    .page-wrap {
-        margin: 12px auto;
-        padding: 0 8px;
-    }
-
-    .cart-main,
-    .summary-box {
-        padding: 12px;
-    }
-
-    .cart-main h1 {
-        font-size: 1.1rem;
-        margin-bottom: 8px;
-    }
-
-    .cart-item {
-        padding: 12px 0;
-        gap: 10px;
-    }
-
-    .cart-item img {
-        max-width: 120px;
-    }
-
-    .item-name {
-        font-size: 0.9rem;
-    }
-
-    .item-price {
-        font-size: 0.95rem;
-    }
-
-    .btn-checkout {
-        font-size: 0.85rem;
-        padding: 9px;
-    }
-
-    .summary-box h3 {
-        font-size: 0.95rem;
-    }
-
-    .summary-row,
-    .summary-row.total {
-        font-size: 0.8rem;
-    }
-}
-
-@media (max-width: 360px) {
-    .navbar {
-        height: auto;
-        padding: 7px 9px;
-        gap: 6px;
-        justify-content: flex-start;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-    }
-
-    .nav-cart {
-        order: 1;
-        font-size: 0.78rem;
-        padding: 5px 2px;
-        flex: 0 0 auto;
-        white-space: nowrap;
-    }
-
-    .nav-cart i {
-        font-size: 1.3rem;
-        margin-right: 2px;
-    }
-
-    .nav-session {
-        order: 2;
-        min-width: auto;
-        gap: 5px;
-        padding: 5px 2px;
-        flex: 0 0 auto;
-        margin-left: auto;
-    }
-
-    .nav-session .session-btn {
-        padding: 5px 7px;
-        font-size: 0.62rem;
-    }
-
-    .panel {
-        padding: 7px 11px;
-        font-size: 0.82rem;
-    }
 .nav-logo {
     height: 50px;
     width: 130px;
@@ -477,22 +203,6 @@ body.cart-page {
 
 .logo::before {
     content: "ShopNest";
-}
-
-.nav-title {
-    flex: 1;
-    text-align: center;
-}
-
-.nav-title span {
-    display: block;
-    font-size: 1.2rem;
-    font-weight: 700;
-}
-
-.nav-title small {
-    color: rgba(255,255,255,0.75);
-    font-size: 0.8rem;
 }
 
 .nav-cart {
@@ -820,28 +530,4 @@ body.cart-page {
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
-}
-
-/* Final ultra-small override: ensure two-row navbar layout to prevent scattering */
-@media (max-width: 360px) {
-    .navbar {
-        flex-wrap: wrap;
-        align-items: flex-start;
-        justify-content: flex-start;
-        gap: 6px;
-    }
-
-    .nav-logo { order: 1; flex: 0 0 auto; }
-    .nav-cart { order: 2; flex: 0 0 auto; margin-right: 6px; }
-    .nav-orders, .nav-address { display: none !important; }
-
-    .nav-session {
-        order: 3;
-        width: 100%;
-        display: flex;
-        justify-content: flex-end;
-        padding-top: 6px;
-    }
-
-    .nav-session .session-btn { padding: 5px 8px; }
 }

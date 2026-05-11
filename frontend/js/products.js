@@ -100,55 +100,53 @@ function renderProducts(products) {
                 return;
             }
 
-            // Show loading state
+            // Optimistic UI update for snappy interaction
+            const prevStock = Number(card.dataset.stock || 0);
+            const nextStock = Math.max(0, prevStock - 1);
+            card.dataset.stock = String(nextStock);
+            card.dataset.inStock = String(nextStock > 0);
+            const stockEl = card.querySelector(".product-stock");
+            if (stockEl) {
+                stockEl.style.color = nextStock > 0 ? "#007600" : "#b12704";
+                stockEl.textContent = nextStock > 0 ? `In Stock (${nextStock})` : "Out of Stock";
+            }
+
+            // Immediate button feedback
             button.disabled = true;
-            button.textContent = "Adding...";
-            button.style.backgroundColor = "#ccc";
+            button.textContent = "Added!";
+            updateCartBadge();
 
-            try {
-                await apiRequest("/cart/items", {
-                    method: "POST",
-                    body: JSON.stringify({
-                        userId: user.id,
-                        productId: Number(button.dataset.id),
-                        quantity: 1
-                    })
-                });
-
-                const nextStock = Math.max(0, Number(card.dataset.stock || 0) - 1);
-                card.dataset.stock = String(nextStock);
-                card.dataset.inStock = String(nextStock > 0);
-
-                const stockEl = card.querySelector(".product-stock");
-                if (stockEl) {
-                    stockEl.style.color = nextStock > 0 ? "#007600" : "#b12704";
-                    stockEl.textContent = nextStock > 0 ? `In Stock (${nextStock})` : "Out of Stock";
-                }
-
-                button.textContent = "Added!";
-                button.style.backgroundColor = "#f0c14b";
-                button.disabled = false;
-                updateCartBadge();
-
+            // Fire the network request but don't block the UI (handle errors to revert)
+            apiRequest("/cart/items", {
+                method: "POST",
+                body: JSON.stringify({
+                    userId: user.id,
+                    productId: Number(button.dataset.id),
+                    quantity: 1
+                })
+            }).then(() => {
+                // Small delay then revert to Add/Unavailable depending on stock
                 setTimeout(() => {
                     if (Number(card.dataset.stock || 0) > 0) {
                         button.textContent = "Add to Cart";
-                        button.style.backgroundColor = "#ffd814";
                         button.disabled = false;
                     } else {
                         button.textContent = "Unavailable";
-                        button.style.backgroundColor = "#e0e0e0";
                         button.disabled = true;
                     }
-                }, 1500);
-
-                // Re-sync with backend so stock remains accurate across tabs/users.
+                }, 700);
+                // Re-sync in background
                 refreshVisibleProductStock().catch(() => {});
-            } catch (error) {
-                // Restore button state on error
+            }).catch((error) => {
+                // Revert optimistic update on error
+                card.dataset.stock = String(prevStock);
+                card.dataset.inStock = String(prevStock > 0);
+                if (stockEl) {
+                    stockEl.style.color = prevStock > 0 ? "#007600" : "#b12704";
+                    stockEl.textContent = prevStock > 0 ? `In Stock (${prevStock})` : "Out of Stock";
+                }
                 button.disabled = false;
                 button.textContent = "Add to Cart";
-                button.style.backgroundColor = "#ffd814";
 
                 if ((error?.message || "").toLowerCase().includes("user or product not found")) {
                     clearCurrentUser();
@@ -157,7 +155,7 @@ function renderProducts(products) {
                     return;
                 }
                 window.alert(error.message);
-            }
+            });
         });
 
         grid.appendChild(card);
@@ -187,11 +185,9 @@ function updateCardStockFromServer(card, product) {
         if (inStock) {
             if (button.textContent !== "Added!") {
                 button.textContent = "Add to Cart";
-                button.style.backgroundColor = "#ffd814";
             }
         } else {
             button.textContent = "Unavailable";
-            button.style.backgroundColor = "#e0e0e0";
         }
     }
 }

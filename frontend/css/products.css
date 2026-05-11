@@ -626,14 +626,7 @@ body.products-page {
         .nav-session { order: 2; margin-left: auto; flex: 0 0 auto; }
         .navbar { overflow-x: visible; }
     }
-    background-color: #ffd814;
-    border: 1px solid #fcd200;
-    border-radius: 100px;
-    padding: 8px 15px;
-    font-size: 0.85rem;
-    cursor: pointer;
-    margin-top: auto;
-    transition: background-color 0.2s;
+    /* stray styles removed to avoid unexpected button color overrides */
 }
 
 .add-to-cart-btn:hover {
@@ -645,6 +638,36 @@ body.products-page {
     border-color: #d5d9d9;
     color: #666;
     cursor: not-allowed;
+}
+
+/* Add-to-Cart button: yellow primary style (keeps optimistic UI) */
+.add-to-cart-btn {
+    display: block;
+    width: 100%;
+    background: linear-gradient(180deg, #ffd814 0%, #f0c14b 100%);
+    border: 1px solid #f0c14b;
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #0f1111;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.12s ease, box-shadow 0.12s ease, transform 0.06s ease;
+}
+
+.add-to-cart-btn:hover {
+    background: linear-gradient(180deg, #ffd100 0%, #efb93f 100%);
+    transform: translateY(-1px);
+}
+
+.add-to-cart-btn[disabled], .add-to-cart-btn.disabled {
+    background: #e7e9ec;
+    border-color: #d5d9d9;
+    color: #666;
+    cursor: not-allowed;
+    box-shadow: none;
 }
 
 footer {
