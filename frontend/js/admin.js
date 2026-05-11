@@ -284,7 +284,16 @@ async function loadOrders() {
     try {
         const data = await apiRequest("/admin/orders");
         const source = data && data.orders ? data.orders : (Array.isArray(data) ? data : []);
-        allOrders = source.map(normalizeAdminOrder);
+        allOrders = source
+            .map(normalizeAdminOrder)
+            .sort((a, b) => {
+                const aTime = Date.parse(a?.placedAt || a?.placed_at || "") || 0;
+                const bTime = Date.parse(b?.placedAt || b?.placed_at || "") || 0;
+                if (bTime !== aTime) {
+                    return bTime - aTime;
+                }
+                return Number(b?.id || 0) - Number(a?.id || 0);
+            });
         lastOrdersError = "";
         displayOrders();
     } catch (error) {
@@ -553,14 +562,33 @@ document.addEventListener("DOMContentLoaded", async () => {
     await loadAllProducts();
     await loadOrders();
 
-    // Poll for new orders every 8 seconds so admin sees recent bookings without manual refresh
+    // Poll for new orders more frequently so admin updates feel near-real-time
     ordersPollInterval = setInterval(async () => {
         try {
             await loadOrders();
         } catch (err) {
             // ignore polling errors
         }
-    }, 8000);
+    }, 2500);
+
+    // Refresh immediately when tab becomes active again.
+    document.addEventListener("visibilitychange", async () => {
+        if (!document.hidden) {
+            try {
+                await loadOrders();
+            } catch (_err) {
+                // ignore focus refresh errors
+            }
+        }
+    });
+
+    window.addEventListener("focus", async () => {
+        try {
+            await loadOrders();
+        } catch (_err) {
+            // ignore focus refresh errors
+        }
+    });
 
     const refreshButton = document.getElementById("refresh-users-btn");
     if (refreshButton) {
