@@ -347,6 +347,30 @@ footer {
     color: white;
     height: 50px;
     display: flex;
+
+/* Final ultra-small override: ensure two-row navbar layout to prevent scattering */
+@media (max-width: 360px) {
+    .navbar {
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 6px;
+    }
+
+    .nav-logo { order: 1; flex: 0 0 auto; }
+    .nav-cart { order: 2; flex: 0 0 auto; margin-right: 6px; }
+    .nav-orders, .nav-address { display: none !important; }
+
+    .nav-session {
+        order: 3;
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        padding-top: 6px;
+    }
+
+    .nav-session .session-btn { padding: 5px 8px; }
+}
     justify-content: center;
     align-items: center;
     font-size: 0.85rem;
@@ -687,6 +711,8 @@ footer {
         gap: 6px;
         padding: 8px;
         align-items: center;
+        justify-content: flex-start;
+        height: auto;
     }
 
     .nav-logo,
@@ -743,6 +769,7 @@ footer {
         width: auto;
         padding: 0;
         gap: 0;
+        min-width: auto;
     }
 
     .nav-session-text,
@@ -753,6 +780,126 @@ footer {
     .nav-session .session-btn {
         padding: 6px 9px;
         font-size: 0.7rem;
+        }
+
+        @media (max-width: 360px) {
+            .navbar {
+                flex-wrap: nowrap;
+                gap: 5px;
+                padding: 7px;
+                align-items: center;
+                justify-content: flex-start;
+                height: auto;
+                overflow-x: auto;
+            }
+
+            .nav-search {
+                order: 1;
+                flex: 1 1 auto;
+                height: 38px;
+                margin: 0;
+                min-width: 0;
+            }
+
+            .search-select {
+                width: 65px;
+                font-size: 0.68rem;
+                padding: 0 3px;
+                flex: 0 0 auto;
+            }
+
+            .search-input {
+                font-size: 0.88rem;
+                padding: 0 6px;
+                min-width: 0;
+            }
+
+            .search-icon {
+                width: 36px;
+                font-size: 0.98rem;
+                flex: 0 0 auto;
+            }
+
+            .nav-cart {
+                order: 2;
+                flex: 0 0 auto;
+                padding: 4px 2px;
+                font-size: 0.73rem;
+                white-space: nowrap;
+                margin-right: 3px;
+            }
+
+            .nav-cart i {
+                font-size: 1.15rem;
+                margin-right: 2px;
+            }
+
+            .nav-session {
+                order: 3;
+                flex: 0 0 auto;
+                width: auto;
+                padding: 0;
+                gap: 0;
+                min-width: auto;
+                margin-left: auto;
+            }
+
+            .nav-session .session-btn {
+                padding: 4px 7px;
+                font-size: 0.62rem;
+                line-height: 1;
+                border-radius: 999px;
+            }
+
+            .panel-all {
+                padding: 7px 10px;
+                font-size: 0.77rem;
+            }
+
+            .shop-section {
+                margin-top: -70px;
+                padding: 10px 9px;
+                gap: 8px;
+            }
+
+            .box {
+                min-height: 310px;
+                padding: 12px 11px;
+            }
+
+            .box h2 {
+                font-size: 1.02rem;
+            }
+
+            .box-image {
+                height: 190px;
+                margin-bottom: 10px;
+            }
+
+            .hero-section {
+                height: 190px;
+            }
+
+            .hero-massage {
+                font-size: 0.76rem;
+                padding: 7px 11px;
+                margin-bottom: 12px;
+                min-height: 41px;
+            }
+
+            .foot-panel1 {
+                font-size: 0.76rem;
+            }
+
+            .foot-panel2 {
+                padding: 17px 13px;
+                gap: 13px;
+            }
+
+            .foot-panel3 {
+                font-size: 0.71rem;
+                padding: 11px 12px;
+            }
         line-height: 1;
         border-radius: 999px;
     }
@@ -776,5 +923,149 @@ footer {
     .foot-panel1,
     .foot-panel3 {
         font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .navbar {
+        flex-wrap: nowrap;
+        gap: 4px;
+
+/* Ultra-small override: collapse search and keep navbar compact */
+@media (max-width: 360px) {
+    .nav-search { display: none !important; }
+    .nav-cart { order: 1; flex: 0 0 auto; margin-right: 6px; }
+    .nav-session { order: 2; margin-left: auto; flex: 0 0 auto; }
+    .navbar { overflow-x: visible; }
+}
+        padding: 6px;
+        align-items: center;
+        justify-content: flex-start;
+        height: auto;
+    }
+
+    .nav-search {
+        order: 1;
+        flex: 1 1 auto;
+        height: 36px;
+        margin: 0;
+    }
+
+    .search-select {
+        width: 60px;
+        font-size: 0.65rem;
+        padding: 0 3px;
+    }
+
+    .search-input {
+        font-size: 0.85rem;
+        padding: 0 6px;
+    }
+
+    .search-icon {
+        width: 34px;
+        font-size: 0.95rem;
+    }
+
+    .nav-cart {
+        order: 2;
+        flex: 0 0 auto;
+        padding: 4px 2px;
+        font-size: 0.7rem;
+        margin-right: 4px;
+    }
+
+    .nav-cart i {
+        font-size: 1.1rem;
+        margin-right: 2px;
+    }
+
+    .nav-session {
+        order: 3;
+        flex: 0 0 auto;
+        padding: 0;
+        gap: 0;
+        margin-left: auto;
+    }
+
+    .nav-session .session-btn {
+        padding: 4px 6px;
+        font-size: 0.6rem;
+    }
+
+    .panel-all {
+        padding: 6px 8px;
+        font-size: 0.75rem;
+    }
+
+    .panel-all i {
+        margin-right: 3px;
+    }
+
+    .shop-section {
+        margin-top: -70px;
+        padding: 10px 8px;
+    }
+
+    .box {
+        min-height: 300px;
+        padding: 12px 10px;
+    }
+
+    .box h2 {
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
+
+    .box-image {
+        height: 180px;
+        margin-bottom: 10px;
+    }
+
+    .hero-section {
+        height: 180px;
+    }
+
+    .hero-massage {
+        font-size: 0.75rem;
+        padding: 6px 10px;
+        margin-bottom: 12px;
+        min-height: 40px;
+    }
+
+    .foot-panel1 {
+        font-size: 0.75rem;
+        padding: 8px;
+    }
+
+    .foot-panel2 {
+        padding: 16px 12px;
+        gap: 12px;
+    }
+
+    .footer-brand h3 {
+        font-size: 1.3rem;
+    }
+
+    .footer-brand p,
+    .footer-contact p {
+        font-size: 0.8rem;
+    }
+
+    .footer-links a {
+        font-size: 0.8rem;
+    }
+
+    .footer-social-inline {
+        gap: 8px;
+    }
+
+    .footer-social-inline a {
+        font-size: 1rem;
+    }
+
+    .foot-panel3 {
+        font-size: 0.7rem;
+        padding: 10px 12px;
     }
 }

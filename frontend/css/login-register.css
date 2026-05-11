@@ -397,3 +397,547 @@ body.auth-page {
     color: #555;
     padding-bottom: 15px;
 }
+
+@media (max-width: 700px) {
+    .login-header {
+        padding: 10px 0;
+        margin-bottom: 16px;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+    }
+
+    .login-box,
+    .register-box {
+        padding: 24px 20px;
+        border-radius: 6px;
+    }
+
+    .login-box {
+        max-width: calc(100% - 16px);
+        margin: 0 8px;
+    }
+
+    .register-box {
+        max-width: calc(100% - 16px);
+        margin: 0 8px;
+    }
+
+    .login-box h1,
+    .register-box h1 {
+        font-size: 1.3rem;
+        margin-bottom: 16px;
+    }
+
+    .form-group {
+        margin-bottom: 12px;
+    }
+
+    .form-group label {
+        font-size: 0.8rem;
+        margin-bottom: 3px;
+    }
+
+    .form-group input {
+        padding: 6px 9px;
+        font-size: 0.9rem;
+    }
+
+    .btn-signin,
+    .btn-register {
+        font-size: 0.85rem;
+        padding: 8px;
+    }
+
+    .new-account {
+        max-width: calc(100% - 16px);
+        margin: 20px 8px 0;
+    }
+
+    .admin-shortcut {
+        max-width: calc(100% - 16px);
+        margin: 16px 8px 0;
+        padding: 12px 14px;
+    }
+
+    .admin-shortcut p {
+        font-size: 0.85rem;
+    }
+
+    .btn-admin {
+        font-size: 0.9rem;
+        padding: 9px;
+    }
+
+    .login-footer-links {
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .login-footer-links a {
+        font-size: 0.7rem;
+    }
+
+    .login-footer-copy {
+        font-size: 0.68rem;
+        padding-bottom: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-header {
+        padding: 8px 0;
+        margin-bottom: 14px;
+    }
+
+    .logo {
+        font-size: 1rem;
+    }
+
+    .login-box,
+    .register-box {
+        padding: 20px 16px;
+        border-width: 1px;
+    }
+
+    .login-box {
+        max-width: calc(100% - 12px);
+        margin: 0 6px;
+    }
+
+    .register-box {
+        max-width: calc(100% - 12px);
+        margin: 0 6px;
+    }
+
+    .login-box h1,
+    .register-box h1 {
+        font-size: 1.15rem;
+        margin-bottom: 14px;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .form-group label {
+        font-size: 0.78rem;
+    }
+
+    .form-group input {
+        padding: 6px 8px;
+        font-size: 0.88rem;
+    }
+
+    .password-wrapper {
+        position: relative;
+    }
+
+    .toggle-password {
+        font-size: 0.78rem;
+        right: 8px;
+    }
+
+    .btn-signin,
+    .btn-register {
+        font-size: 0.82rem;
+        padding: 7px;
+        margin-top: 4px;
+    }
+
+    .divider {
+        margin: 14px 0 10px;
+        font-size: 0.7rem;
+    }
+
+    .new-account {
+        max-width: calc(100% - 12px);
+        margin: 16px 6px 0;
+    }
+
+    .new-account-box {
+        padding-top: 14px;
+        font-size: 0.85rem;
+    }
+
+    .new-account-box p {
+        margin-bottom: 8px;
+    }
+
+    .btn-create {
+        font-size: 0.82rem;
+        padding: 8px;
+    }
+
+    .admin-shortcut {
+        max-width: calc(100% - 12px);
+        margin: 12px 6px 0;
+        padding: 10px 12px;
+    }
+
+    .admin-shortcut p {
+        font-size: 0.8rem;
+        margin-bottom: 8px;
+    }
+
+    .btn-admin {
+        font-size: 0.85rem;
+        padding: 8px;
+    }
+
+    .error-msg {
+        font-size: 0.8rem;
+        padding: 8px;
+        margin-bottom: 12px;
+    }
+
+    .success-screen.login-success {
+        max-width: calc(100% - 12px);
+        padding: 24px 16px;
+        margin: 0 6px;
+    }
+
+    .success-screen.register-success {
+        max-width: calc(100% - 12px);
+        padding: 28px 16px;
+        margin: 0 6px;
+    }
+
+    .success-screen i {
+        font-size: 2.8rem;
+        margin-bottom: 12px;
+    }
+
+    .success-screen h2 {
+        font-size: 1.2rem;
+        margin-bottom: 8px;
+    }
+
+    .success-screen p {
+        font-size: 0.85rem;
+        margin-bottom: 16px;
+    }
+
+    .signin-link {
+        font-size: 0.8rem;
+        margin-top: 14px;
+        padding-top: 12px;
+    }
+
+    .login-footer {
+        margin-top: 30px;
+    }
+
+    .login-footer-links {
+        gap: 8px;
+        padding: 10px;
+    }
+
+    .login-footer-links a {
+        font-size: 0.65rem;
+    }
+
+    .login-footer-copy {
+        font-size: 0.63rem;
+        padding-bottom: 10px;
+    }
+}
+
+@media (max-width: 320px) {
+    .login-header {
+        padding: 6px 0;
+        margin-bottom: 12px;
+    }
+
+    .logo {
+        font-size: 0.9rem;
+    }
+
+    .login-box,
+    .register-box {
+        padding: 16px 12px;
+    }
+
+    .login-box {
+        max-width: calc(100% - 8px);
+        margin: 0 4px;
+    }
+
+    .register-box {
+        max-width: calc(100% - 8px);
+        margin: 0 4px;
+    }
+
+    .login-box h1,
+    .register-box h1 {
+        font-size: 1rem;
+        margin-bottom: 12px;
+    }
+
+    .form-group {
+        margin-bottom: 8px;
+    }
+
+    .form-group label {
+        font-size: 0.75rem;
+    }
+
+    .form-group input {
+        padding: 5px 7px;
+        font-size: 0.85rem;
+    }
+
+    .toggle-password {
+        font-size: 0.7rem;
+        right: 6px;
+    }
+
+    .btn-signin,
+    .btn-register {
+        font-size: 0.8rem;
+        padding: 6px;
+        margin-top: 3px;
+    }
+
+    .divider {
+        margin: 12px 0 8px;
+        font-size: 0.65rem;
+    }
+
+    .new-account {
+        max-width: calc(100% - 8px);
+        margin: 12px 4px 0;
+    }
+
+    .new-account-box {
+        padding-top: 10px;
+        font-size: 0.8rem;
+    }
+
+    .new-account-box p {
+        margin-bottom: 6px;
+    }
+
+    .btn-create {
+        font-size: 0.78rem;
+        padding: 7px;
+    }
+
+    .admin-shortcut {
+        max-width: calc(100% - 8px);
+        margin: 10px 4px 0;
+        padding: 8px 10px;
+    }
+
+    .admin-shortcut p {
+        font-size: 0.75rem;
+        margin-bottom: 6px;
+    }
+
+    .btn-admin {
+        font-size: 0.8rem;
+        padding: 7px;
+    }
+
+    .error-msg {
+        font-size: 0.75rem;
+        padding: 6px;
+        margin-bottom: 10px;
+    }
+
+    .success-screen.login-success {
+        max-width: calc(100% - 8px);
+        padding: 20px 12px;
+        margin: 0 4px;
+    }
+
+    .success-screen.register-success {
+        max-width: calc(100% - 8px);
+        padding: 24px 12px;
+        margin: 0 4px;
+    }
+
+    .success-screen i {
+        font-size: 2.4rem;
+        margin-bottom: 10px;
+    }
+
+    .success-screen h2 {
+        font-size: 1rem;
+        margin-bottom: 6px;
+    }
+
+    .success-screen p {
+        font-size: 0.8rem;
+        margin-bottom: 14px;
+    }
+
+    .signin-link {
+        font-size: 0.75rem;
+        margin-top: 12px;
+        padding-top: 10px;
+    }
+
+    .login-footer {
+        margin-top: 24px;
+    }
+
+    .login-footer-links {
+        gap: 6px;
+        padding: 8px;
+    }
+
+    .login-footer-links a {
+        font-size: 0.6rem;
+    }
+
+    .login-footer-copy {
+        font-size: 0.58rem;
+        padding-bottom: 8px;
+    }
+
+    @media (max-width: 360px) {
+        .login-header {
+            padding: 8px 0;
+            margin-bottom: 13px;
+        }
+
+        .logo {
+            font-size: 0.95rem;
+        }
+
+        .login-box,
+        .register-box {
+            padding: 19px 15px;
+        }
+
+        .login-box {
+            max-width: calc(100% - 9px);
+            margin: 0 4px;
+        }
+
+        .register-box {
+            max-width: calc(100% - 9px);
+            margin: 0 4px;
+        }
+
+        .login-box h1,
+        .register-box h1 {
+            font-size: 1.12rem;
+            margin-bottom: 13px;
+        }
+
+        .form-group {
+            margin-bottom: 9px;
+        }
+
+        .form-group label {
+            font-size: 0.77rem;
+        }
+
+        .form-group input {
+            padding: 5px 7px;
+            font-size: 0.87rem;
+        }
+
+        .btn-signin,
+        .btn-register {
+            font-size: 0.81rem;
+            padding: 6px;
+        }
+
+        .new-account {
+            max-width: calc(100% - 9px);
+            margin: 15px 4px 0;
+        }
+
+        .btn-create {
+            font-size: 0.8rem;
+            padding: 7px;
+        }
+
+        .admin-shortcut {
+            max-width: calc(100% - 9px);
+            margin: 11px 4px 0;
+            padding: 9px 11px;
+        }
+
+        .admin-shortcut p {
+            font-size: 0.76rem;
+            margin-bottom: 7px;
+        }
+
+        .btn-admin {
+            font-size: 0.79rem;
+            padding: 7px;
+        }
+
+        .success-screen.login-success {
+            max-width: calc(100% - 9px);
+            padding: 21px 15px;
+            margin: 0 4px;
+        }
+
+        .success-screen.register-success {
+            max-width: calc(100% - 9px);
+            padding: 23px 15px;
+            margin: 0 4px;
+        }
+
+        .success-screen h2 {
+            font-size: 1.15rem;
+            margin-bottom: 7px;
+        }
+
+        .success-screen p {
+            font-size: 0.82rem;
+            margin-bottom: 15px;
+        }
+
+        .login-footer-links {
+            gap: 7px;
+            padding: 9px;
+        }
+
+        .login-footer-links a {
+            font-size: 0.62rem;
+        }
+
+        .login-footer-copy {
+            font-size: 0.6rem;
+            padding-bottom: 9px;
+        }
+
+    /* Final ultra-small override: ensure two-row navbar layout to prevent scattering */
+    @media (max-width: 360px) {
+        .navbar {
+            flex-wrap: wrap;
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: 6px;
+        }
+
+        .nav-logo { order: 1; flex: 0 0 auto; }
+        .nav-cart { order: 2; flex: 0 0 auto; margin-right: 6px; }
+        .nav-orders, .nav-address { display: none !important; }
+
+        .nav-session {
+            order: 3;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            padding-top: 6px;
+        }
+
+        .nav-session .session-btn { padding: 5px 8px; }
+    }
+    /* Ultra-small override: collapse search and keep navbar compact */
+    @media (max-width: 360px) {
+        .nav-search { display: none !important; }
+        .nav-cart { order: 1; flex: 0 0 auto; margin-right: 6px; }
+        .nav-session { order: 2; margin-left: auto; flex: 0 0 auto; }
+        .navbar { overflow-x: visible; }
+    }
+    }
+}

@@ -482,3 +482,360 @@ body.orders-page {
         grid-template-columns: 1fr;
     }
 }
+
+@media (max-width: 480px) {
+    .navbar {
+        flex-wrap: wrap;
+        padding: 8px 12px;
+        gap: 8px;
+        justify-content: flex-start;
+        height: auto;
+    }
+
+    .nav-logo {
+        order: 1;
+        width: 100px;
+        height: auto;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+    }
+
+    .nav-title {
+        order: 2;
+        width: calc(100% - 108px);
+        flex: 0 0 auto;
+    }
+
+    .nav-title span {
+        font-size: 1.1rem;
+    }
+
+    .nav-title small {
+        font-size: 0.75rem;
+    }
+
+    .nav-session {
+        order: 3;
+        width: 100%;
+        gap: 8px;
+        justify-content: space-between;
+    }
+
+    .nav-session-text {
+        display: none;
+    }
+
+    .session-link,
+    .session-btn {
+        padding: 6px 10px;
+        font-size: 0.65rem;
+    }
+
+    .panel {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+
+    .orders-container {
+        padding: 16px 12px;
+    }
+
+    .page-title {
+        font-size: 1.3rem;
+    }
+
+    .orders-layout {
+        gap: 16px;
+    }
+
+    .tracking-card {
+        padding: 16px;
+    }
+
+    .order-header {
+        font-size: 0.9rem;
+        gap: 10px;
+    }
+
+    .order-header-text {
+        flex: 1;
+    }
+
+    .order-header-text span {
+        font-size: 0.85rem;
+    }
+
+    .tracking-status-row {
+        gap: 10px;
+    }
+
+    .tracking-status {
+        padding: 12px;
+    }
+
+    .tracking-status-label {
+        font-size: 0.8rem;
+    }
+
+    .tracking-status-value {
+        font-size: 0.9rem;
+    }
+
+    .order-item {
+        padding: 12px;
+        gap: 12px;
+    }
+
+    .order-item-image {
+        width: 100px;
+        height: 100px;
+    }
+
+    .order-item-details {
+        flex: 1;
+    }
+
+    .order-item-name {
+        font-size: 0.95rem;
+    }
+
+    .order-item-price {
+        font-size: 0.9rem;
+    }
+
+    .order-item-qty {
+        font-size: 0.85rem;
+    }
+
+    .track-order-btn {
+        font-size: 0.85rem;
+        padding: 10px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 320px) {
+    .navbar {
+        padding: 6px 10px;
+        gap: 6px;
+    }
+
+    .nav-logo {
+        width: 80px;
+    }
+
+    .logo {
+        font-size: 1rem;
+    }
+
+    .nav-title {
+        gap: 0;
+    }
+
+    .nav-title span {
+        font-size: 0.95rem;
+    }
+
+    .nav-title small {
+        font-size: 0.7rem;
+    }
+
+    .nav-session {
+        gap: 6px;
+    }
+
+    .session-link,
+    .session-btn {
+        padding: 5px 8px;
+        font-size: 0.6rem;
+    }
+
+    .panel {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+    }
+
+    .orders-container {
+        padding: 12px 10px;
+    }
+
+    .page-title {
+        font-size: 1.1rem;
+    }
+
+    .orders-layout {
+        gap: 12px;
+    }
+
+    .tracking-card {
+        padding: 12px;
+    }
+
+    .order-header {
+        font-size: 0.8rem;
+        gap: 8px;
+    }
+
+    .order-header-text span {
+        font-size: 0.75rem;
+    }
+
+    .tracking-status-row {
+        gap: 8px;
+    }
+
+    .tracking-status {
+        padding: 10px;
+    }
+
+    .tracking-status-label {
+        font-size: 0.75rem;
+    }
+
+    .tracking-status-value {
+        font-size: 0.85rem;
+    }
+
+    .order-item {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .order-item-image {
+        width: 80px;
+        height: 80px;
+    }
+
+    .order-item-name {
+        font-size: 0.85rem;
+    }
+
+    .order-item-price {
+        font-size: 0.8rem;
+    }
+
+    .order-item-qty {
+        font-size: 0.75rem;
+    }
+
+    .track-order-btn {
+        font-size: 0.8rem;
+        padding: 8px;
+    }
+
+    @media (max-width: 360px) {
+        .navbar {
+            flex-wrap: wrap;
+            padding: 7px 11px;
+            gap: 7px;
+            justify-content: flex-start;
+            height: auto;
+        }
+
+        .nav-logo {
+            order: 1;
+            width: 95px;
+            height: auto;
+        }
+
+        .logo {
+            font-size: 1.15rem;
+        }
+
+        .nav-title {
+            order: 2;
+            width: calc(100% - 103px);
+            flex: 0 0 auto;
+        }
+
+        .nav-title span {
+            font-size: 1.05rem;
+        }
+
+        .nav-title small {
+            font-size: 0.72rem;
+        }
+
+        .nav-session {
+            order: 3;
+            width: 100%;
+            gap: 7px;
+            justify-content: space-between;
+        }
+
+        .session-link,
+        .session-btn {
+            padding: 5px 9px;
+            font-size: 0.62rem;
+        }
+
+        .panel {
+            padding: 7px 11px;
+            font-size: 0.77rem;
+        }
+
+        .orders-container {
+            padding: 15px 11px;
+        }
+
+        .page-title {
+            font-size: 1.2rem;
+        }
+
+        .tracking-card {
+            padding: 15px;
+        }
+
+        .order-item {
+            padding: 11px;
+            gap: 11px;
+        }
+
+        .order-item-image {
+            width: 95px;
+            height: 95px;
+        }
+
+        .order-item-name {
+            font-size: 0.93rem;
+        }
+
+        .track-order-btn {
+            font-size: 0.83rem;
+            padding: 9px;
+        }
+
+    /* Final ultra-small override: ensure two-row navbar layout to prevent scattering */
+    @media (max-width: 360px) {
+        .navbar {
+            flex-wrap: wrap;
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: 6px;
+        }
+
+        .nav-logo { order: 1; flex: 0 0 auto; }
+        .nav-cart { order: 2; flex: 0 0 auto; margin-right: 6px; }
+        .nav-orders, .nav-address { display: none !important; }
+
+        .nav-session {
+            order: 3;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            padding-top: 6px;
+        }
+
+        .nav-session .session-btn { padding: 5px 8px; }
+    }
+    /* Ultra-small override: collapse search and keep navbar compact */
+    @media (max-width: 360px) {
+        .nav-search { display: none !important; }
+        .nav-cart { order: 1; flex: 0 0 auto; margin-right: 6px; }
+        .nav-session { order: 2; margin-left: auto; flex: 0 0 auto; }
+        .navbar { overflow-x: visible; }
+    }
+    }
+}
